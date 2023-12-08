@@ -22,6 +22,8 @@ class _ListClientsScreenState extends State<ListClientsScreen> {
 
   List<Cliente> clientesFiltrados = [];
 
+  bool isLoading = false;
+
   void getClients() async {
     try {
         final serviceClientes = ApiServiceClientes(userMail: "jriquelme@neumachile.cl");
@@ -29,19 +31,19 @@ class _ListClientsScreenState extends State<ListClientsScreen> {
         setState(() {
           clientesFiltrados = data;
           clientes = data;
+          isLoading = true;
         });
     } catch (e) {
       print('error al cargar');
     }
+    
   }
 
   void filtrarClientes(String filtro) {
     setState(() {
       if (filtro.isEmpty) {
-      // Si el filtro está vacío, mostrar la lista completa
       clientesFiltrados = clientes;
     } else {
-      // Filtrar la lista según el criterio proporcionado
       clientesFiltrados = clientesFiltrados
           .where((cliente) =>
               cliente.nombre.toLowerCase().contains(filtro.toLowerCase()))
@@ -62,7 +64,7 @@ class _ListClientsScreenState extends State<ListClientsScreen> {
         backgroundColor: colorBG,
         appBar: AppBar(
           backgroundColor: colorBG,
-          title: const Text('Lista de Clientes', style: TextStyle(color: Colors.white)),
+          title: const Text('GCclientes', style: TextStyle(color: Colors.white)),
         ),
         body: Column(
           children: [
@@ -78,8 +80,9 @@ class _ListClientsScreenState extends State<ListClientsScreen> {
                 style: const TextStyle(color: Colors.white)
               ),
             ),
-            Expanded(
-              child: 
+            isLoading == true ? Expanded(
+              child: clientesFiltrados.isEmpty ?
+              const Text("No Encontrado",style: TextStyle(color: Colors.white),):
               ListView.builder(
                 itemCount: clientesFiltrados.length,
                 itemBuilder: (context, index) {
@@ -88,7 +91,22 @@ class _ListClientsScreenState extends State<ListClientsScreen> {
                   );
                 },
               ),
-            ),
+            ) : const Center(
+                  child: Column(
+                    
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        'Cargando...',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ],
+                  ),
+                ),
           ],
         ),
       );

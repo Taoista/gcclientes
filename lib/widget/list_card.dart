@@ -53,6 +53,6 @@ Card makeCard(Cliente lesson) => Card(
           trailing:
               Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
           onTap: () {
-            print("cliciando");
+            print("cliciando ${lesson.codigo}");
           },
         );
