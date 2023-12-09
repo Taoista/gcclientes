@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gcclientes/config/clientes.dart';
 import 'package:gcclientes/config/colors.dart';
 import 'package:gcclientes/services/api_clientes.dart';
-import 'package:gcclientes/widget/list_card.dart';
+import 'package:gcclientes/widget/list_card_cliente.dart';
 
 
 
@@ -87,7 +87,7 @@ class _ListClientsScreenState extends State<ListClientsScreen> {
                 itemCount: clientesFiltrados.length,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    title: makeCard(clientesFiltrados[index]),
+                    title: ListCardCliente(cliente: clientesFiltrados[index],),
                   );
                 },
               ),
