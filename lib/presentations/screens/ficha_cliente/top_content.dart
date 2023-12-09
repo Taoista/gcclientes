@@ -87,7 +87,7 @@ class TopContent extends StatelessWidget {
             borderRadius: BorderRadius.circular(5.0)),
             child:  Text(
             "puntos".toString(),
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
               ),
             ),)
           ],

@@ -1,11 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:gcclientes/controllers/controll_gps.dart';
+import 'package:geolocator/geolocator.dart';
+// import 'package:permission_handler/permission_handler.dart';
 
 
 
+class BottomContent extends StatefulWidget {
+  final String codigoCliente;
+  const BottomContent({super.key, required this.codigoCliente});
+  
+  @override
+  State<BottomContent> createState() => _BottomContentState();
+}
+
+class _BottomContentState extends State<BottomContent> {
+
+  ControllGps controllGps = ControllGps();
+
+  String latitud = "";
+  String longitud = "";
 
 
-class BottomContent extends StatelessWidget {
-  const BottomContent({super.key});
+  Future getCurrentLocation() async {
+    Position position = await controllGps.determinarPosicion();
+    latitud = position.latitude.toString();
+    longitud = position.longitude.toString();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controllGps.determinarPosicion();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +68,14 @@ class BottomContent extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               child: Center(
               child: ElevatedButton(
-                onPressed: () {
-                  // Acciones cuando se presiona el botón
+                onPressed: () async {
+                  String long = longitud;
+                  String lat = latitud;
+                  String nota = textarea.text;             
+                  String codCliente = widget.codigoCliente;
+
+
+                  print("capturando gps");
                 },
                 style: ElevatedButton.styleFrom(
                   primary: Color(0xFF4c5464), // Color de fondo

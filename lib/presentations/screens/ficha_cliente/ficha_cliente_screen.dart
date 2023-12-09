@@ -32,7 +32,6 @@ class _FichaClienteScreenState extends State<FichaClienteScreen> {
       final data = await serviceDataCliente.fetchClientes();
       setState(() {
         cliente = data;
-        print(cliente.nombre);
         isLoading = true;
       });
     } catch (e) {
@@ -57,7 +56,7 @@ class _FichaClienteScreenState extends State<FichaClienteScreen> {
          body: isLoading ? ListView(children: [TopContent(nombre: cliente.nombre,
                                     rut: cliente.rut, codigo: cliente.codigo, 
                                     telefono: cliente.telefono,
-                                    pContacto: cliente.pContacto,), BottomContent()],) :  
+                                    pContacto: cliente.pContacto,), BottomContent(codigoCliente: cliente.codigo,)],) :  
         const Center(
           child: CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation<Color>(Colors.white),

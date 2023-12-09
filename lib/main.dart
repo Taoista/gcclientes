@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gcclientes/config/router.dart';
+import 'package:gcclientes/controllers/controll_gps.dart';
 
 
 
@@ -9,8 +10,25 @@ void main() {
 
 
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  ControllGps controllGps = ControllGps();
+
+
+
+  @override
+  void initState() {
+    super.initState();
+    controllGps.determinarPosicion();
+  }
+
 
   @override
   Widget build(BuildContext context) {
