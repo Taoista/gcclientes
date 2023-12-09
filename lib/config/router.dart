@@ -12,11 +12,12 @@ appRouter(){
         builder: (context, state) => const ListClientsScreen()
       ),
       GoRoute(
-        path: "/list_client/:codigo_cliente",
+        path: "/list_client/:codigo_cliente/:email_vendedor",
         name: FichaClienteScreen.name,
         builder:(context, state) {
           String codigoCliente = state.pathParameters["codigo_cliente"]!;
-          return FichaClienteScreen(codigoCliente: codigoCliente);
+          String emailVendedor = state.pathParameters["email_vendedor"]!;
+          return FichaClienteScreen(codigoCliente: codigoCliente, emailVendedor: emailVendedor,);
         }
       ),
     ]

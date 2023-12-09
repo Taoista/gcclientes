@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:gcclientes/controllers/controll_gps.dart';
+import 'package:gcclientes/controllers/controll_send_visita.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:go_router/go_router.dart';
 // import 'package:permission_handler/permission_handler.dart';
 
 
 
 class BottomContent extends StatefulWidget {
   final String codigoCliente;
-  const BottomContent({super.key, required this.codigoCliente});
+  final String emailVendedor;
+  const BottomContent({super.key, required this.codigoCliente, required this.emailVendedor});
   
   @override
   State<BottomContent> createState() => _BottomContentState();
@@ -32,6 +35,7 @@ class _BottomContentState extends State<BottomContent> {
     // TODO: implement initState
     super.initState();
     controllGps.determinarPosicion();
+    getCurrentLocation();
   }
 
   @override
@@ -47,14 +51,14 @@ class _BottomContentState extends State<BottomContent> {
           children: //<Widget>[bottomContentText, readButton],
           <Widget>[
             const Text(
-              "hola",
+              "Nota",
               style: TextStyle(fontSize: 18.0, color: Colors.white),
             ),
              TextField(
                 controller: textarea,
                 keyboardType: TextInputType.multiline,
                 maxLines: 4,
-                 style: TextStyle(color: Colors.white),
+                 style: const TextStyle(color: Colors.white),
                 decoration: const InputDecoration( 
                     hintText: "Agregar nota",
                     hintStyle: TextStyle(color: Colors.white),
@@ -64,7 +68,7 @@ class _BottomContentState extends State<BottomContent> {
                 ),
               ),
             Container(
-              padding: EdgeInsets.symmetric(vertical: 16.0),
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
               width: MediaQuery.of(context).size.width,
               child: Center(
               child: ElevatedButton(
@@ -73,13 +77,22 @@ class _BottomContentState extends State<BottomContent> {
                   String lat = latitud;
                   String nota = textarea.text;             
                   String codCliente = widget.codigoCliente;
-
-
-                  print("capturando gps");
+        
+                  if(nota == ""){
+                    _msgError();
+                  }else{
+                    var visita = ControllSendVisita(emailVendedor: widget.emailVendedor, codigoCliente: widget.codigoCliente, latitud: latitud, longitud: longitud, nota: nota);
+                    String resolve = await visita.sendData();
+                    textarea.text = "";
+                    _msgSendOk();
+                    Future.delayed(Duration(seconds: 3), () {
+                      context.push("/list_client");
+                    });
+                  }
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: Color(0xFF4c5464), // Color de fondo
-                  onPrimary: Color(0xFFd8d9dd), // Color del texto
+                  primary: const Color(0xFF4c5464), // Color de fondo
+                  onPrimary: const Color(0xFFd8d9dd), // Color del texto
                 ),
                 child: const Text('Enviar'),
               ),
@@ -90,4 +103,61 @@ class _BottomContentState extends State<BottomContent> {
       ),
     );
   }
+
+  Future<void> _msgError() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Error'),
+          content: const SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Nota.'),
+                Text('Debe agregar una nota para continuar'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Aceptar'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _msgSendOk() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Envio'),
+          content: const SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Nota.'),
+                Text('Se enviuo correctamente'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Aceptar'),
+              onPressed: () {
+                 context.push("/list_client");
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 }

@@ -13,8 +13,8 @@ class FichaClienteScreen extends StatefulWidget {
   static const String name = "ficha_cliente_screen";
 
   final String codigoCliente;
-
-  const FichaClienteScreen({super.key, required this.codigoCliente});
+  final String emailVendedor;
+  const FichaClienteScreen({super.key, required this.codigoCliente, required this.emailVendedor});
 
   @override
   State<FichaClienteScreen> createState() => _FichaClienteScreenState();
@@ -49,14 +49,11 @@ class _FichaClienteScreenState extends State<FichaClienteScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: colorBG,
-        // appBar: AppBar(
-        //   backgroundColor: colorBG,
-        //   title: const Text('GCclientes', style: TextStyle(color: Colors.white)),
-        // ),
+        
          body: isLoading ? ListView(children: [TopContent(nombre: cliente.nombre,
                                     rut: cliente.rut, codigo: cliente.codigo, 
                                     telefono: cliente.telefono,
-                                    pContacto: cliente.pContacto,), BottomContent(codigoCliente: cliente.codigo,)],) :  
+                                    pContacto: cliente.pContacto,), BottomContent(codigoCliente: cliente.codigo,emailVendedor: widget.emailVendedor,)],) :  
         const Center(
           child: CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation<Color>(Colors.white),

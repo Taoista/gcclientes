@@ -10,6 +10,7 @@ import 'package:gcclientes/widget/list_card_cliente.dart';
 
 class ListClientsScreen extends StatefulWidget {
   static const String name = "list_clients";
+  final String emailVendedor = 'jriquelme@neumachile.cl';
   const ListClientsScreen({super.key});
 
   @override
@@ -26,7 +27,7 @@ class _ListClientsScreenState extends State<ListClientsScreen> {
 
   void getClients() async {
     try {
-        final serviceClientes = ApiServiceClientes(userMail: "jriquelme@neumachile.cl");
+        final serviceClientes = ApiServiceClientes(userMail: widget.emailVendedor);
         var data = await serviceClientes.fetchClientes();
         setState(() {
           clientesFiltrados = data;
@@ -87,7 +88,7 @@ class _ListClientsScreenState extends State<ListClientsScreen> {
                 itemCount: clientesFiltrados.length,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    title: ListCardCliente(cliente: clientesFiltrados[index],),
+                    title: ListCardCliente(cliente: clientesFiltrados[index],emailVendedor: widget.emailVendedor,),
                   );
                 },
               ),

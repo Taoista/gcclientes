@@ -101,7 +101,7 @@ class TopContent extends StatelessWidget {
           top: 60.0,
           child: InkWell(
             onTap: () {
-             print("retroceder");
+              Navigator.pop(context);
             },
             child: Icon(Icons.arrow_back, color: Colors.white),
           ),

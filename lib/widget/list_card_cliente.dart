@@ -4,7 +4,8 @@ import 'package:go_router/go_router.dart';
 
 class ListCardCliente extends StatelessWidget {
   Cliente cliente;
-  ListCardCliente({super.key, required this.cliente});
+  final String emailVendedor;
+  ListCardCliente({super.key, required this.cliente, required this.emailVendedor});
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +50,7 @@ class ListCardCliente extends StatelessWidget {
           trailing:
               const Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
           onTap: () {
-            context.push("/list_client/${cliente.codigo}");
+            context.push("/list_client/${cliente.codigo}/${emailVendedor}");
           },
         ),
           ),
