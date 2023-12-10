@@ -35,9 +35,7 @@ class ControllSendVisita{
   }
 
   Future sendData() async {
-    print("entrando a la funciona");
     try {
-      print("entrando al try");
       var postData = visita();
 
       Response response = await dio.post("https://admin-neumachile.cl/api/create_new_visita"

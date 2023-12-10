@@ -3,6 +3,8 @@ import 'package:gcclientes/config/clientes.dart';
 import 'package:gcclientes/config/colors.dart';
 import 'package:gcclientes/services/api_clientes.dart';
 import 'package:gcclientes/widget/list_card_cliente.dart';
+import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 
@@ -10,7 +12,7 @@ import 'package:gcclientes/widget/list_card_cliente.dart';
 
 class ListClientsScreen extends StatefulWidget {
   static const String name = "list_clients";
-  final String emailVendedor = 'jriquelme@neumachile.cl';
+  // final String emailVendedor;
   const ListClientsScreen({super.key});
 
   @override
@@ -18,6 +20,12 @@ class ListClientsScreen extends StatefulWidget {
 }
 
 class _ListClientsScreenState extends State<ListClientsScreen> {
+
+  String emailVendedor = "";
+
+
+  SharedPreferences? _prefs;
+
 
   List<Cliente> clientes = [];
 
@@ -27,7 +35,7 @@ class _ListClientsScreenState extends State<ListClientsScreen> {
 
   void getClients() async {
     try {
-        final serviceClientes = ApiServiceClientes(userMail: widget.emailVendedor);
+        final serviceClientes = ApiServiceClientes(userMail: emailVendedor);
         var data = await serviceClientes.fetchClientes();
         setState(() {
           clientesFiltrados = data;
@@ -35,9 +43,21 @@ class _ListClientsScreenState extends State<ListClientsScreen> {
           isLoading = true;
         });
     } catch (e) {
-      print('error al cargar');
+      // throw e;
     }
     
+  }
+
+  cargarPreferencias() async{
+    _prefs = await SharedPreferences.getInstance();
+
+    if(_prefs!.getString('usuario') == null){
+      context.push('/login');
+    }
+    setState(() {
+      emailVendedor = _prefs!.getString('usuario')!;
+      getClients();
+    });
   }
 
   void filtrarClientes(String filtro) {
@@ -56,7 +76,8 @@ class _ListClientsScreenState extends State<ListClientsScreen> {
   @override
   void initState() {
     super.initState();
-    getClients();
+    cargarPreferencias();
+
   }
 
   @override
@@ -88,7 +109,7 @@ class _ListClientsScreenState extends State<ListClientsScreen> {
                 itemCount: clientesFiltrados.length,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    title: ListCardCliente(cliente: clientesFiltrados[index],emailVendedor: widget.emailVendedor,),
+                    title: ListCardCliente(cliente: clientesFiltrados[index],emailVendedor: emailVendedor,),
                   );
                 },
               ),

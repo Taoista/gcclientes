@@ -1,11 +1,18 @@
 import 'package:gcclientes/presentations/screens/ficha_cliente/ficha_cliente_screen.dart';
 import 'package:gcclientes/presentations/screens/list_clients_screen.dart';
+import 'package:gcclientes/presentations/screens/login/login_screen.dart';
 import 'package:go_router/go_router.dart';
 
 appRouter(){
   return GoRouter(
-    initialLocation: "/list_client",
+    initialLocation: "/login",
+    // initialLocation: "/list_client",
     routes: [
+      GoRoute(
+        path: "/login",
+        name: LoginScreen.name,
+        builder: (context, state) => const LoginScreen()
+      ),
       GoRoute(
         path: "/list_client",
         name: ListClientsScreen.name,
@@ -16,8 +23,7 @@ appRouter(){
         name: FichaClienteScreen.name,
         builder:(context, state) {
           String codigoCliente = state.pathParameters["codigo_cliente"]!;
-          String emailVendedor = state.pathParameters["email_vendedor"]!;
-          return FichaClienteScreen(codigoCliente: codigoCliente, emailVendedor: emailVendedor,);
+          return FichaClienteScreen(codigoCliente: codigoCliente,);
         }
       ),
     ]

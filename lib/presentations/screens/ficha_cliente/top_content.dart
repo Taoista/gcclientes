@@ -65,9 +65,9 @@ class TopContent extends StatelessWidget {
               Expanded(
                 flex: 6,
                 child: Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
+                    padding: EdgeInsets.only(left: 10.0),
                     child: Text("89868937",
-                        style: const TextStyle(color: Colors.white))),
+                        style: TextStyle(color: Colors.white))),
               )
             ],
           )
@@ -103,7 +103,7 @@ class TopContent extends StatelessWidget {
             onTap: () {
               Navigator.pop(context);
             },
-            child: Icon(Icons.arrow_back, color: Colors.white),
+            child: const Icon(Icons.arrow_back, color: Colors.white),
           ),
         )
       ],

@@ -32,7 +32,6 @@ class _BottomContentState extends State<BottomContent> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     controllGps.determinarPosicion();
     getCurrentLocation();
@@ -73,26 +72,22 @@ class _BottomContentState extends State<BottomContent> {
               child: Center(
               child: ElevatedButton(
                 onPressed: () async {
-                  String long = longitud;
-                  String lat = latitud;
                   String nota = textarea.text;             
-                  String codCliente = widget.codigoCliente;
         
                   if(nota == ""){
                     _msgError();
                   }else{
                     var visita = ControllSendVisita(emailVendedor: widget.emailVendedor, codigoCliente: widget.codigoCliente, latitud: latitud, longitud: longitud, nota: nota);
-                    String resolve = await visita.sendData();
+                    await visita.sendData();
                     textarea.text = "";
                     _msgSendOk();
-                    Future.delayed(Duration(seconds: 3), () {
+                    Future.delayed(const Duration(seconds: 3), () {
                       context.push("/list_client");
                     });
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: const Color(0xFF4c5464), // Color de fondo
-                  onPrimary: const Color(0xFFd8d9dd), // Color del texto
+                  foregroundColor: const Color(0xFFd8d9dd), backgroundColor: const Color(0xFF4c5464), // Color del texto
                 ),
                 child: const Text('Enviar'),
               ),
