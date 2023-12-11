@@ -19,7 +19,6 @@ class ListClientsScreen extends StatefulWidget {
 
 class _ListClientsScreenState extends State<ListClientsScreen> {
 
-  String emailVendedor = "";
 
 
   // SharedPreferences? _prefs;
@@ -36,7 +35,7 @@ class _ListClientsScreenState extends State<ListClientsScreen> {
     try {
       print("entrado al try");
 
-        final serviceClientes = ApiServiceClientes(userMail: emailVendedor);
+        final serviceClientes = ApiServiceClientes(userMail: widget.emailVendedor);
         var data = await serviceClientes.fetchClientes();
         print("mostradno data");
         print(data);
@@ -104,7 +103,7 @@ class _ListClientsScreenState extends State<ListClientsScreen> {
                 itemCount: clientesFiltrados.length,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    title: ListCardCliente(cliente: clientesFiltrados[index],emailVendedor: emailVendedor,),
+                    title: ListCardCliente(cliente: clientesFiltrados[index],emailVendedor: widget.emailVendedor,),
                   );
                 },
               ),

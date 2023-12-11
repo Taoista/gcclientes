@@ -11,9 +11,11 @@ class ApiServiceClientes{
 
 
   Future<List<Cliente>> fetchClientes() async{
-    // print(userMail);
+    print("iniciando la future");
+    print(userMail);
     try {
       final response = await dio.get("https://admin-neumachile.cl/api/get_clientes/$userMail");
+      // final response = await dio.get('https://admin-neumachile.cl/api/get_clientes/farmijo@neumachile.cl');
       print(response.data);
       if(response.statusCode == 200){
         final List<dynamic> jsonData = response.data;

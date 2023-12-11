@@ -156,21 +156,20 @@ class _LoginScreenState extends State<LoginScreen> {
                     right: (MediaQuery.of(context).size.width * 0.1),
                     width: MediaQuery.of(context).size.width * 0.8,
                     // height: 200,
-                    child: FadeInUp(duration: const  Duration(milliseconds: 1300), child: Container(
-                      child: TextField(
-                        style: TextStyle(color: Colors.black), // Color del texto dentro del TextField
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Color.fromRGBO(255, 255, 255, 0.5), // Fondo blanco transparente (ajusta la opacidad según tus necesidades)
-                          hintText: 'EMAIL',
-                          hintStyle: TextStyle(color: Colors.white, fontFamily: 'Roboto'), // Color del texto de sugerencia
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            // borderSide: BorderSide(color: Colors.black), 
-                            borderSide: BorderSide.none
-                          ),
+                    child: FadeInUp(duration: const  Duration(milliseconds: 1300), child: TextField(
+                      controller: _textFieldUser,
+                      style: const TextStyle(color: Colors.black), // Color del texto dentro del TextField
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: const Color.fromRGBO(255, 255, 255, 0.5), // Fondo blanco transparente (ajusta la opacidad según tus necesidades)
+                        hintText: 'EMAIL',
+                        hintStyle: const TextStyle(color: Colors.white, fontFamily: 'Roboto'), // Color del texto de sugerencia
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          // borderSide: BorderSide(color: Colors.black), 
+                          borderSide: BorderSide.none
                         ),
-                      )
+                      ),
                     ),
                     ),
                   ),
@@ -179,21 +178,21 @@ class _LoginScreenState extends State<LoginScreen> {
                     right: (MediaQuery.of(context).size.width * 0.1),
                     width: MediaQuery.of(context).size.width * 0.8,
                     // height: 200,
-                    child: FadeInUp(duration: const  Duration(milliseconds: 1300), child: Container(
-                      child: TextField(
-                        style: TextStyle(color: Colors.black), // Color del texto dentro del TextField
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Color.fromRGBO(255, 255, 255, 0.5), // Fondo blanco transparente (ajusta la opacidad según tus necesidades)
-                          hintText: 'PASSWORD',
-                          hintStyle: TextStyle(color: Colors.white, fontFamily: 'Roboto'), // Color del texto de sugerencia
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            // borderSide: BorderSide(color: Colors.black), 
-                            borderSide: BorderSide.none
-                          ),
+                    child: FadeInUp(duration: const  Duration(milliseconds: 1300), child: TextField(
+                      obscureText: true,
+                      controller: _textFieldPassword,
+                      style: const TextStyle(color: Colors.black), // Color del texto dentro del TextField
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: const Color.fromRGBO(255, 255, 255, 0.5), // Fondo blanco transparente (ajusta la opacidad según tus necesidades)
+                        hintText: 'PASSWORD',
+                        hintStyle: const TextStyle(color: Colors.white, fontFamily: 'Roboto'), // Color del texto de sugerencia
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          // borderSide: BorderSide(color: Colors.black), 
+                          borderSide: BorderSide.none
                         ),
-                      )
+                      ),
                     ),
                     ),
                   ),
@@ -202,25 +201,68 @@ class _LoginScreenState extends State<LoginScreen> {
                     right: (MediaQuery.of(context).size.width * 0.1),
                     width: MediaQuery.of(context).size.width * 0.8,
                     // height: 200,
-                    child: FadeInUp(duration: const  Duration(milliseconds: 1300), child: Container(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          // Agrega la lógica que se ejecutará cuando se presione el botón
-                        },
-                        style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.symmetric(vertical: 16.0),
-                          primary: Color(0xFF00BEB7), // Color del fondo del botón
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0), // Radio de las esquinas
-                          ),
+                    child: FadeInUp(duration: const  Duration(milliseconds: 1300), child: 
+                    sendLoading ? ElevatedButton(
+                      onPressed: () async {
+                        String user = _textFieldUser.text;
+                      String password = _textFieldPassword.text;
+
+                      if(user == "" || password == ""){
+                        errorEmptyForm(context);
+                      }else{
+                        setState(() {
+                          sendLoading = true;
+                        });
+                        ControllSession response = ControllSession(usuario: user, password: password); 
+                        Map<String,dynamic> data = await response.setLogin();
+                        // ?accesso a la aplicacione
+                        if(data['response'] == 'ok'){
+                          if(data['estado_usuario'] == 1 && data['estado_vendedor'] == 1 && data['access_gc'] == 1){
+                            _prefs!.setString('usuario', _textFieldUser.text);
+                            _prefs!.setString('nombre', data['apellido']);
+                            _prefs!.setString('apellido', data['apellido']);
+                            _prefs!.setInt('id_rol', data['id_rol']);
+                            _prefs!.setString('rol', data['rol']);
+                            context.push('/list_client');
+                          }else{
+                            errorContactAdmin(context);
+                            setState(() {
+                              sendLoading = false;
+                            });
+                          }
+                        }else{
+                          errorLoadingData(context, data['response']);
+                           setState(() {
+                              sendLoading = false;
+                            });
+                        }
+                      } 
+                      },
+                      style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.symmetric(vertical: 16.0),
+                        primary: Color(0xFF00BEB7), // Color del fondo del botón
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0), // Radio de las esquinas
                         ),
-                        child: Text(
-                          'INICIAR',
-                          style: TextStyle(
-                            color: Colors.white, // Color del texto
-                          ),
+                      ),
+                      child: const Text(
+                        'INICIAR',
+                        style: TextStyle(
+                          color: Colors.white, // Color del texto
                         ),
-                      )
+                      ),
+                    ) : ElevatedButton(
+                      onPressed: null,
+                      style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.symmetric(vertical: 16.0),
+                        primary: Color(0xFF00BEB7), // Color del fondo del botón
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0), // Radio de las esquinas
+                        ),
+                      ),
+                      child:  CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+      ),
                     ),
                     ),
                   ),
