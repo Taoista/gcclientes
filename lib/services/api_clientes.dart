@@ -11,9 +11,10 @@ class ApiServiceClientes{
 
 
   Future<List<Cliente>> fetchClientes() async{
-
+    // print(userMail);
     try {
       final response = await dio.get("https://admin-neumachile.cl/api/get_clientes/$userMail");
+      print(response.data);
       if(response.statusCode == 200){
         final List<dynamic> jsonData = response.data;
         final List<Cliente> clientes = jsonData.map((item) => Cliente.fromJson(item)).toList();

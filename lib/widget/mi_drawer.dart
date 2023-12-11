@@ -73,8 +73,7 @@ class _MiDrawerState extends State<MiDrawer> {
             ListTile(
               title: Text('Inicio'),
               onTap: () {
-                // Lógica cuando se selecciona "Inicio"
-                Navigator.pop(context); // Cierra el Drawer
+                context.push("/vendedores");
               },
             ),
             // Línea de separación

@@ -58,7 +58,7 @@ class _VendedoresScreenState extends State<VendedoresScreen> {
       drawer: const MiDrawer(),
       appBar: AppBar(
         backgroundColor: colorBG,
-        title: const Text('GEOClietnes', style: TextStyle(color: Colors.white)),
+        title: const Text('Vendedores', style: TextStyle(color: Colors.white)),
       ),
       body: Column(
         children: [

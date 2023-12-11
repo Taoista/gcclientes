@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:gcclientes/config/vendedor.dart';
+import 'package:go_router/go_router.dart';
 
 
 class ListCardVendedor extends StatelessWidget {
@@ -51,7 +52,8 @@ class ListCardVendedor extends StatelessWidget {
           trailing:
               const Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
           onTap: () {
-            // context.push("/ficha_client/${cliente.codigo}/$emailVendedor");
+            print(vendedor.email);
+            context.push("/list_client/${vendedor.email}");
           },
         ),
           ),

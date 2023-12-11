@@ -10,8 +10,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ListClientsScreen extends StatefulWidget {
   static const String name = "list_clients";
-  // final String emailVendedor;
-  const ListClientsScreen({super.key});
+  final String emailVendedor;
+  const ListClientsScreen({super.key, required this.emailVendedor});
 
   @override
   State<ListClientsScreen> createState() => _ListClientsScreenState();
@@ -22,7 +22,7 @@ class _ListClientsScreenState extends State<ListClientsScreen> {
   String emailVendedor = "";
 
 
-  SharedPreferences? _prefs;
+  // SharedPreferences? _prefs;
 
 
   List<Cliente> clientes = [];
@@ -32,31 +32,27 @@ class _ListClientsScreenState extends State<ListClientsScreen> {
   bool isLoading = false;
 
   void getClients() async {
+    print("iniviando la funcion");
     try {
+      print("entrado al try");
+
         final serviceClientes = ApiServiceClientes(userMail: emailVendedor);
         var data = await serviceClientes.fetchClientes();
+        print("mostradno data");
+        print(data);
         setState(() {
           clientesFiltrados = data;
           clientes = data;
           isLoading = true;
         });
     } catch (e) {
+      print("entrando al carch");
+      print("$e");
       // throw e;
     }
     
   }
 
-  cargarPreferencias() async{
-    _prefs = await SharedPreferences.getInstance();
-
-    if(_prefs!.getString('usuario') == null){
-      context.push('/login');
-    }
-    setState(() {
-      emailVendedor = _prefs!.getString('usuario')!;
-      getClients();
-    });
-  }
 
   void filtrarClientes(String filtro) {
     setState(() {
@@ -74,8 +70,8 @@ class _ListClientsScreenState extends State<ListClientsScreen> {
   @override
   void initState() {
     super.initState();
-    cargarPreferencias();
-
+    // cargarPreferencias();
+    getClients();
   }
 
   @override
