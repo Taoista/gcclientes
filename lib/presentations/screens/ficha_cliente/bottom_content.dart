@@ -196,7 +196,7 @@ class _BottomContentState extends State<BottomContent> {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Error'),
+          title: const Text('Nota'),
           content: const SingleChildScrollView(
             child: ListBody(
               children: <Widget>[

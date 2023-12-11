@@ -3,11 +3,9 @@ import 'package:gcclientes/config/clientes.dart';
 import 'package:gcclientes/config/colors.dart';
 import 'package:gcclientes/services/api_clientes.dart';
 import 'package:gcclientes/widget/list_card_cliente.dart';
+import 'package:gcclientes/widget/mi_drawer.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-
-
 
 
 class ListClientsScreen extends StatefulWidget {
@@ -84,6 +82,7 @@ class _ListClientsScreenState extends State<ListClientsScreen> {
   Widget build(BuildContext context) {
     return  Scaffold(
         backgroundColor: colorBG,
+        drawer: MiDrawer(),
         appBar: AppBar(
           backgroundColor: colorBG,
           title: const Text('GCclientes', style: TextStyle(color: Colors.white)),

@@ -1,6 +1,7 @@
 import 'package:gcclientes/presentations/screens/ficha_cliente/ficha_cliente_screen.dart';
 import 'package:gcclientes/presentations/screens/list_clients_screen.dart';
 import 'package:gcclientes/presentations/screens/login/login_screen.dart';
+import 'package:gcclientes/presentations/screens/vendedores/vendedores_screen.dart';
 import 'package:go_router/go_router.dart';
 
 appRouter(){
@@ -8,6 +9,11 @@ appRouter(){
     initialLocation: "/login",
     // initialLocation: "/list_client",
     routes: [
+      GoRoute(
+        path: '/vendedores',
+        name: VendedoresScreen.name,
+        builder: (context, state) => VendedoresScreen()
+      ),
       GoRoute(
         path: "/login",
         name: LoginScreen.name,

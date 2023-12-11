@@ -31,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
   cargarPreferencias() async{
     _prefs = await SharedPreferences.getInstance();
     if(_prefs!.getString('usuario') != null){
-      context.push('/list_client');
+      context.push('/vendedores');
     }
   }
 
@@ -99,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
       	            child: FadeInUp(duration: const Duration(milliseconds: 1600), child:  Container(
       	              margin: const EdgeInsets.only(top: 50),
       	              child: const Center(
-      	                child: Text("GCClientes", style: TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold),),
+      	                child: Text("GeoClientes", style: TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold),),
       	              ),
       	            )),
       	          )
@@ -196,7 +196,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               _prefs!.setString('apellido', data['apellido']);
                               _prefs!.setInt('id_rol', data['id_rol']);
                               _prefs!.setString('rol', data['rol']);
-                              context.push('/list_client');
+                              context.push('/vendedores');
                             }else{
                               errorContactAdmin(context);
                               setState(() {
