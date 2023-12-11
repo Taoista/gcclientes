@@ -40,34 +40,34 @@ class TopContent extends StatelessWidget {
         //   color: Colors.white,
         //   size: 40.0,
         // ),
-        Text(rut, style: const TextStyle(color: Colors.white, fontSize: 15.0),),
+        Text(rut, style: const TextStyle(color: Colors.white, fontSize: 14.0),),
          const SizedBox(
-          width: 90.0,
+          width: 110.0,
           child:  Divider(color: Colors.green),
         ),
         const SizedBox(height: 10.0),
          Text(
           nombre,
-          style: const TextStyle(color: Colors.white, fontSize: 30.0),
+          style: const TextStyle(color: Colors.white, fontSize: 25.0),
         ),
-        const SizedBox(height: 30.0),
+        const SizedBox(height: 10.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            const Expanded(flex: 3, child: Row(
+            Expanded(flex: 5, child: Row(
             children: <Widget>[
-              Expanded(
+              const Expanded(
                   flex: 1,
                   child: LinearProgressIndicator(
                       backgroundColor: Color.fromRGBO(209, 224, 224, 0.2),
                       value: 10,
                       valueColor: AlwaysStoppedAnimation(Colors.green))),
               Expanded(
-                flex: 6,
+                flex: 15,
                 child: Padding(
-                    padding: EdgeInsets.only(left: 10.0),
-                    child: Text("89868937",
-                        style: TextStyle(color: Colors.white))),
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: Text(telefono,
+                        style: const TextStyle(color: Colors.white))),
               )
             ],
           )

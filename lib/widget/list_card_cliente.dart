@@ -50,7 +50,7 @@ class ListCardCliente extends StatelessWidget {
           trailing:
               const Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
           onTap: () {
-            context.push("/list_client/${cliente.codigo}/${emailVendedor}");
+            context.push("/ficha_client/${cliente.codigo}/$emailVendedor");
           },
         ),
           ),

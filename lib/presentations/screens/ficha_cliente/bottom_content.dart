@@ -23,11 +23,14 @@ class _BottomContentState extends State<BottomContent> {
   String latitud = "";
   String longitud = "";
 
+  bool loadingSend = false;
 
   Future getCurrentLocation() async {
     Position position = await controllGps.determinarPosicion();
-    latitud = position.latitude.toString();
-    longitud = position.longitude.toString();
+    setState(() {
+      latitud = position.latitude.toString();
+      longitud = position.longitude.toString();
+    });
   }
 
   @override
@@ -70,27 +73,87 @@ class _BottomContentState extends State<BottomContent> {
               padding: const EdgeInsets.symmetric(vertical: 16.0),
               width: MediaQuery.of(context).size.width,
               child: Center(
-              child: ElevatedButton(
-                onPressed: () async {
+              child: loadingSend ?
+              // ElevatedButton(
+              //   onPressed: () async {
+              //     String nota = textarea.text;             
+              //     getCurrentLocation();
+              //     if(nota == ""){
+              //       _msgError();
+              //     }else{
+              //       var visita = ControllSendVisita(emailVendedor: widget.emailVendedor, codigoCliente: widget.codigoCliente, latitud: latitud, longitud: longitud, nota: nota);
+              //       await visita.sendData();
+              //       textarea.text = "";
+              //       _msgSendOk();
+              //       Future.delayed(const Duration(seconds: 3), () {
+              //         context.push("/list_client");
+              //       });
+              //     }
+              //   },
+              //   style: ElevatedButton.styleFrom(
+              //     foregroundColor: const Color(0xFFd8d9dd), backgroundColor: const Color(0xFF4c5464), // Color del texto
+              //   ),
+              //   child: const Text('Enviar'),
+              // ),
+              Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          gradient: const LinearGradient(
+                            colors: [
+                              Color(0xFF4c5464),
+                            Color(0xFF4c5464),
+                            ]
+                          )
+                        ),
+                        child: const Center(
+                          child: CircularProgressIndicator(
+                          color: Colors.white,
+                        ),
+                        ),
+                    ):
+              InkWell(
+                onTap: () async {
                   String nota = textarea.text;             
-        
                   if(nota == ""){
                     _msgError();
                   }else{
-                    var visita = ControllSendVisita(emailVendedor: widget.emailVendedor, codigoCliente: widget.codigoCliente, latitud: latitud, longitud: longitud, nota: nota);
-                    await visita.sendData();
-                    textarea.text = "";
-                    _msgSendOk();
-                    Future.delayed(const Duration(seconds: 3), () {
-                      context.push("/list_client");
+                    getCurrentLocation();
+                    setState(() {
+                      loadingSend = true;
                     });
+                      var visita = ControllSendVisita(emailVendedor: widget.emailVendedor, codigoCliente: widget.codigoCliente, latitud: latitud, longitud: longitud, nota: nota);
+                      String response = await visita.sendData();
+                      if(response.replaceAll(RegExp(r'\s+'), '') == "ok"){
+                          _msgSendOk();
+                          Future.delayed(const Duration(seconds: 3), (){
+                            context.push("/list_client");
+                          });
+                      }else{
+                        _msgErrorSEND();
+                        setState(() {
+                            loadingSend = false;
+                        });
+                      }
+                      textarea.text = "";
                   }
                 },
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: const Color(0xFFd8d9dd), backgroundColor: const Color(0xFF4c5464), // Color del texto
-                ),
-                child: const Text('Enviar'),
-              ),
+                child: Container(
+                    height: 50,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      gradient: const LinearGradient(
+                        colors: [
+                          Color(0xFF4c5464),
+                        Color(0xFF4c5464),
+                        ]
+                      )
+                    ),
+                    child: const Center(
+                      child: Text("Enviar", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+                    ),
+                  ),
+              )
             )
             )
           ],
@@ -133,12 +196,40 @@ class _BottomContentState extends State<BottomContent> {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Envio'),
+          title: const Text('Error'),
           content: const SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
                 Text('Nota.'),
-                Text('Se enviuo correctamente'),
+                Text('Se envio correctamente'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Aceptar'),
+              onPressed: () {
+                 context.push("/list_client");
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _msgErrorSEND() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Envio'),
+          content: const SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Error.'),
+                Text('Error al enviar,intente mas tarde'),
               ],
             ),
           ),
