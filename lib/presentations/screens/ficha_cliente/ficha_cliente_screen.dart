@@ -63,7 +63,7 @@ class _FichaClienteScreenState extends State<FichaClienteScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: colorBG,
+      // backgroundColor: colorBG,
         
          body: isLoading ? ListView(children: [TopContent(nombre: cliente.nombre,
                                     rut: cliente.rut, codigo: cliente.codigo, 

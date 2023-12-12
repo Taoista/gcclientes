@@ -7,7 +7,7 @@ import 'package:go_router/go_router.dart';
 appRouter(){
   return GoRouter(
     initialLocation: "/login",
-    // initialLocation: "/vendedores",
+    // initialLocation: "/ficha_client/ada/asda",
     routes: [
       GoRoute(
         path: '/vendedores',
@@ -33,7 +33,9 @@ appRouter(){
         name: FichaClienteScreen.name,
         builder:(context, state) {
           String codigoCliente = state.pathParameters["codigo_cliente"]!;
+          // String codigoCliente = "16803933";
           String emailVendedor = state.pathParameters["email_vendedor"]!;
+          // String emailVendedor = "avillegas@neumachile.cl";
           return FichaClienteScreen(codigoCliente: codigoCliente,emailVendedor:emailVendedor);
         }
       ),
