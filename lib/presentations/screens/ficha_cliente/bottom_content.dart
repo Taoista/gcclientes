@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gcclientes/config/colors.dart';
-import 'package:gcclientes/controllers/controll_gps.dart';
-import 'package:gcclientes/controllers/controll_send_visita.dart';
+import 'package:geoclientes/config/colors.dart';
+import 'package:geoclientes/controllers/controll_gps.dart';
+import 'package:geoclientes/controllers/controll_send_visita.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
 // import 'package:permission_handler/permission_handler.dart';

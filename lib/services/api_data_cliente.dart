@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:gcclientes/config/clientes.dart';
+import 'package:geoclientes/config/clientes.dart';
 
 class ApiDataCliente{
   String codigoCliente;

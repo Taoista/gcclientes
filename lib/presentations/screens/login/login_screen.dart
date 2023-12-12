@@ -1,7 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:gcclientes/config/login_user.dart';
-import 'package:gcclientes/controllers/controll_session.dart';
+import 'package:geoclientes/config/login_user.dart';
+import 'package:geoclientes/controllers/controll_session.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gcclientes/config/clientes.dart';
-import 'package:gcclientes/config/colors.dart';
+import 'package:geoclientes/config/clientes.dart';
+import 'package:geoclientes/config/colors.dart';
 import 'package:go_router/go_router.dart';
 
 class ListCardCliente extends StatelessWidget {

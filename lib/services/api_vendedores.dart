@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:gcclientes/config/vendedor.dart';
+import 'package:geoclientes/config/vendedor.dart';
 
 class ApiServiceVendedores{
 

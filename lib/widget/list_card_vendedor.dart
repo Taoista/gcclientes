@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:gcclientes/config/colors.dart';
-import 'package:gcclientes/config/vendedor.dart';
+import 'package:geoclientes/config/colors.dart';
+import 'package:geoclientes/config/vendedor.dart';
 import 'package:go_router/go_router.dart';
 
 

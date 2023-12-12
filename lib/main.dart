@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gcclientes/config/router.dart';
-import 'package:gcclientes/controllers/controll_gps.dart';
+import 'package:geoclientes/config/router.dart';
+import 'package:geoclientes/controllers/controll_gps.dart';
 
 
 

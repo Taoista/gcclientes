@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:gcclientes/config/clientes.dart';
-import 'package:gcclientes/config/colors.dart';
-import 'package:gcclientes/services/api_clientes.dart';
-import 'package:gcclientes/widget/list_card_cliente.dart';
-import 'package:gcclientes/widget/mi_drawer.dart';
+import 'package:geoclientes/config/clientes.dart';
+import 'package:geoclientes/config/colors.dart';
+import 'package:geoclientes/services/api_clientes.dart';
+import 'package:geoclientes/widget/list_card_cliente.dart';
+import 'package:geoclientes/widget/mi_drawer.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

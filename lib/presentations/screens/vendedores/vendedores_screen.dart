@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:gcclientes/config/colors.dart';
-import 'package:gcclientes/config/vendedor.dart';
-import 'package:gcclientes/services/api_vendedores.dart';
-import 'package:gcclientes/widget/list_card_vendedor.dart';
-import 'package:gcclientes/widget/mi_drawer.dart';
+import 'package:geoclientes/config/colors.dart';
+import 'package:geoclientes/config/vendedor.dart';
+import 'package:geoclientes/services/api_vendedores.dart';
+import 'package:geoclientes/widget/list_card_vendedor.dart';
+import 'package:geoclientes/widget/mi_drawer.dart';
 
 
 

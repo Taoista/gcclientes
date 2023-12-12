@@ -1,7 +1,7 @@
-import 'package:gcclientes/presentations/screens/ficha_cliente/ficha_cliente_screen.dart';
-import 'package:gcclientes/presentations/screens/vendedores/list_clients_screen.dart';
-import 'package:gcclientes/presentations/screens/login/login_screen.dart';
-import 'package:gcclientes/presentations/screens/vendedores/vendedores_screen.dart';
+import 'package:geoclientes/presentations/screens/ficha_cliente/ficha_cliente_screen.dart';
+import 'package:geoclientes/presentations/screens/vendedores/list_clients_screen.dart';
+import 'package:geoclientes/presentations/screens/login/login_screen.dart';
+import 'package:geoclientes/presentations/screens/vendedores/vendedores_screen.dart';
 import 'package:go_router/go_router.dart';
 
 appRouter(){
