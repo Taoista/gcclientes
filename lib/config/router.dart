@@ -6,8 +6,8 @@ import 'package:go_router/go_router.dart';
 
 appRouter(){
   return GoRouter(
-    // initialLocation: "/login",
-    initialLocation: "/vendedores",
+    initialLocation: "/login",
+    // initialLocation: "/vendedores",
     routes: [
       GoRoute(
         path: '/vendedores',

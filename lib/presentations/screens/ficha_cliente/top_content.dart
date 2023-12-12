@@ -21,7 +21,8 @@ class TopContent extends StatelessWidget {
             height: MediaQuery.of(context).size.height * 0.5,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/images/wallpaper_header.webp"),
+                // image: AssetImage("assets/images/wallpaper_header.webp"),
+                image: AssetImage("assets/images/background_2.png"),
                 fit: BoxFit.cover,
               ),
             )),

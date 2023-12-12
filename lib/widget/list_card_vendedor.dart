@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:gcclientes/config/colors.dart';
 import 'package:gcclientes/config/vendedor.dart';
 import 'package:go_router/go_router.dart';
 
@@ -15,7 +16,7 @@ class ListCardVendedor extends StatelessWidget {
           elevation: 8.0,
           margin: const  EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
           child: Container(
-            decoration: const BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
+            decoration: const BoxDecoration(color: colorBGlIGHT),
             child: ListTile(
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
@@ -24,11 +25,11 @@ class ListCardVendedor extends StatelessWidget {
             decoration: const BoxDecoration(
                 border: Border(
                     right: BorderSide(width: 1.0, color: Colors.white24))),
-            child: const Icon(Icons.autorenew, color: Colors.white),
+            child: const Icon(Icons.autorenew, color: colorBG),
           ),
           title: Text(
-            utf8.decode(latin1.encode(vendedor.nombre)),
-            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            vendedor.nombre,
+            style: const TextStyle(color: colorBG, fontWeight: FontWeight.bold),
           ),
     
 
@@ -45,12 +46,12 @@ class ListCardVendedor extends StatelessWidget {
                 child: Padding(
                     padding: const EdgeInsets.only(left: 10.0),
                     child: Text(vendedor.email,
-                        style: const TextStyle(color: Colors.white))),
+                        style: const TextStyle(color: colorBG))),
               )
             ],
           ),
           trailing:
-              const Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
+              const Icon(Icons.keyboard_arrow_right, color: colorBG, size: 30.0),
           onTap: () {
             print(vendedor.email);
             context.push("/list_client/${vendedor.email}");

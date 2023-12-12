@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gcclientes/config/colors.dart';
 import 'package:gcclientes/controllers/controll_gps.dart';
 import 'package:gcclientes/controllers/controll_send_visita.dart';
 import 'package:geolocator/geolocator.dart';
@@ -74,27 +75,6 @@ class _BottomContentState extends State<BottomContent> {
               width: MediaQuery.of(context).size.width,
               child: Center(
               child: loadingSend ?
-              // ElevatedButton(
-              //   onPressed: () async {
-              //     String nota = textarea.text;             
-              //     getCurrentLocation();
-              //     if(nota == ""){
-              //       _msgError();
-              //     }else{
-              //       var visita = ControllSendVisita(emailVendedor: widget.emailVendedor, codigoCliente: widget.codigoCliente, latitud: latitud, longitud: longitud, nota: nota);
-              //       await visita.sendData();
-              //       textarea.text = "";
-              //       _msgSendOk();
-              //       Future.delayed(const Duration(seconds: 3), () {
-              //         context.push("/list_client");
-              //       });
-              //     }
-              //   },
-              //   style: ElevatedButton.styleFrom(
-              //     foregroundColor: const Color(0xFFd8d9dd), backgroundColor: const Color(0xFF4c5464), // Color del texto
-              //   ),
-              //   child: const Text('Enviar'),
-              // ),
               Container(
                         height: 50,
                         decoration: BoxDecoration(
@@ -144,13 +124,13 @@ class _BottomContentState extends State<BottomContent> {
                       borderRadius: BorderRadius.circular(10),
                       gradient: const LinearGradient(
                         colors: [
-                          Color(0xFF4c5464),
-                        Color(0xFF4c5464),
+                         colorBGlIGHT,
+                        colorBGlIGHT,
                         ]
                       )
                     ),
                     child: const Center(
-                      child: Text("Enviar", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+                      child: Text("Enviar", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, ),),
                     ),
                   ),
               )

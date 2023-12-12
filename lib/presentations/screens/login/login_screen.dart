@@ -20,7 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   SharedPreferences? _prefs;
 
-  bool sendLoading = false;
+  bool sendLoading = true;
 
   @override
   void initState() {
@@ -223,7 +223,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             _prefs!.setString('apellido', data['apellido']);
                             _prefs!.setInt('id_rol', data['id_rol']);
                             _prefs!.setString('rol', data['rol']);
-                            context.push('/list_client');
+                            context.push('/vendedores');
                           }else{
                             errorContactAdmin(context);
                             setState(() {

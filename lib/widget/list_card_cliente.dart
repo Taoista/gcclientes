@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gcclientes/config/clientes.dart';
+import 'package:gcclientes/config/colors.dart';
 import 'package:go_router/go_router.dart';
 
 class ListCardCliente extends StatelessWidget {
@@ -13,7 +14,7 @@ class ListCardCliente extends StatelessWidget {
           elevation: 8.0,
           margin: const  EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
           child: Container(
-            decoration: const BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
+            decoration: const BoxDecoration(color: colorBGlIGHT),
             child: ListTile(
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
@@ -22,11 +23,11 @@ class ListCardCliente extends StatelessWidget {
             decoration: const BoxDecoration(
                 border: Border(
                     right: BorderSide(width: 1.0, color: Colors.white24))),
-            child: const Icon(Icons.autorenew, color: Colors.white),
+            child: const Icon(Icons.autorenew, color: colorBG),
           ),
           title: Text(
             cliente.nombre,
-            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            style: const TextStyle(color: colorBG, fontWeight: FontWeight.bold),
           ),
     
 
@@ -43,12 +44,12 @@ class ListCardCliente extends StatelessWidget {
                 child: Padding(
                     padding: const EdgeInsets.only(left: 10.0),
                     child: Text(cliente.rut,
-                        style: const TextStyle(color: Colors.white))),
+                        style: const TextStyle(color: colorBG))),
               )
             ],
           ),
           trailing:
-              const Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
+              const Icon(Icons.keyboard_arrow_right, color: colorBG, size: 30.0),
           onTap: () {
             context.push("/ficha_client/${cliente.codigo}/$emailVendedor");
           },

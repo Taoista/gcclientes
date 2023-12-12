@@ -31,22 +31,16 @@ class _ListClientsScreenState extends State<ListClientsScreen> {
   bool isLoading = false;
 
   void getClients() async {
-    print("iniviando la funcion");
     try {
-      print("entrado al try");
 
         final serviceClientes = ApiServiceClientes(userMail: widget.emailVendedor);
         var data = await serviceClientes.fetchClientes();
-        print("mostradno data");
-        print(data);
         setState(() {
           clientesFiltrados = data;
           clientes = data;
           isLoading = true;
         });
     } catch (e) {
-      print("entrando al carch");
-      print("$e");
       // throw e;
     }
     
