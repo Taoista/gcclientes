@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geoclientes/config/clientes.dart';
 import 'package:geoclientes/config/colors.dart';
+import 'package:geoclientes/widget/rounded_image.dart';
 import 'package:go_router/go_router.dart';
 
 class ListCardCliente extends StatelessWidget {
@@ -14,7 +15,7 @@ class ListCardCliente extends StatelessWidget {
           elevation: 8.0,
           margin: const  EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
           child: Container(
-            decoration: const BoxDecoration(color: colorBGlIGHT),
+            decoration: const BoxDecoration(color: Colors.white),
             child: ListTile(
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
@@ -23,7 +24,7 @@ class ListCardCliente extends StatelessWidget {
             decoration: const BoxDecoration(
                 border: Border(
                     right: BorderSide(width: 1.0, color: Colors.white24))),
-            child: const Icon(Icons.autorenew, color: colorBG),
+            child: RoundedImage()
           ),
           title: Text(
             cliente.nombre,
@@ -38,9 +39,9 @@ class ListCardCliente extends StatelessWidget {
                   child: LinearProgressIndicator(
                       backgroundColor: Color.fromRGBO(209, 224, 224, 0.2),
                       value: 10,
-                      valueColor: AlwaysStoppedAnimation(Colors.green))),
+                      valueColor: AlwaysStoppedAnimation(colorYELLOW))),
               Expanded(
-                flex: 4,
+                flex: 8,
                 child: Padding(
                     padding: const EdgeInsets.only(left: 10.0),
                     child: Text(cliente.rut,

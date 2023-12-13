@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:geoclientes/config/colors.dart';
 import 'package:geoclientes/config/vendedor.dart';
+import 'package:geoclientes/widget/rounded_image.dart';
 import 'package:go_router/go_router.dart';
 
 
@@ -16,7 +17,7 @@ class ListCardVendedor extends StatelessWidget {
           elevation: 8.0,
           margin: const  EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
           child: Container(
-            decoration: const BoxDecoration(color: colorBGlIGHT),
+            decoration: const BoxDecoration(color: Colors.white),
             child: ListTile(
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
@@ -25,7 +26,7 @@ class ListCardVendedor extends StatelessWidget {
             decoration: const BoxDecoration(
                 border: Border(
                     right: BorderSide(width: 1.0, color: Colors.white24))),
-            child: const Icon(Icons.autorenew, color: colorBG),
+            child: RoundedImage()
           ),
           title: Text(
             vendedor.nombre,
@@ -39,10 +40,10 @@ class ListCardVendedor extends StatelessWidget {
                   flex: 1,
                   child: LinearProgressIndicator(
                       backgroundColor: Color.fromRGBO(209, 224, 224, 0.2),
-                      value: 10,
-                      valueColor: AlwaysStoppedAnimation(Colors.green))),
+                      value: 1,
+                      valueColor: AlwaysStoppedAnimation(colorYELLOW))),
               Expanded(
-                flex: 4,
+                flex: 9,
                 child: Padding(
                     padding: const EdgeInsets.only(left: 10.0),
                     child: Text(vendedor.email,

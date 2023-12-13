@@ -7,7 +7,7 @@ import 'package:go_router/go_router.dart';
 appRouter(){
   return GoRouter(
     initialLocation: "/login",
-    // initialLocation: "/ficha_client/ada/asda",
+    // initialLocation: "/ficha_client/16803933/avillegas@neumachile.cl",
     routes: [
       GoRoute(
         path: '/vendedores',

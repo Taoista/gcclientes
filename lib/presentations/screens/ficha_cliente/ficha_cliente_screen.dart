@@ -23,6 +23,9 @@ class FichaClienteScreen extends StatefulWidget {
 }
 
 class _FichaClienteScreenState extends State<FichaClienteScreen> {
+  String imagePath = "";
+
+
   SharedPreferences? _prefs;
 
   String emailVendedor = "";

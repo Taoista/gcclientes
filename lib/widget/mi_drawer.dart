@@ -49,7 +49,7 @@ class _MiDrawerState extends State<MiDrawer> {
                 children: [
                   CircleAvatar(
                     radius: 40,
-                    backgroundImage: AssetImage('assets/images/wallpaper_header.webp'), // Reemplaza con la ruta de tu imagen
+                    backgroundImage: AssetImage('assets/images/icon-yellow-user.png'), // Reemplaza con la ruta de tu imagen
                   ),
                   SizedBox(height: 10),
                   Text(
@@ -82,12 +82,12 @@ class _MiDrawerState extends State<MiDrawer> {
             ListTile(
               title: const Text('Cerrar Sesión'),
               onTap: () {
-                _prefs!.remove('usuario');
-                _prefs!.remove('nombre');
-                _prefs!.remove('apellido');
-                _prefs!.remove('id_rol');
-                _prefs!.remove('rol');
-                context.push("/login");
+                // _prefs!.remove('usuario');
+                // _prefs!.remove('nombre');
+                // _prefs!.remove('apellido');
+                // _prefs!.remove('id_rol');
+                // _prefs!.remove('rol');
+                // context.push("/login");
               },
             ),
           ],
