@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:geoclientes/config/clientes.dart';
+import 'package:geoclientes/services/ulrs.dart';
 
 class ApiDataCliente{
   String codigoCliente;
@@ -13,7 +14,7 @@ class ApiDataCliente{
   Future<Cliente> fetchClientes() async{
 
     try {
-      final response = await dio.get("https://admin-neumachile.cl/api/get_data_cliente_codigo/$codigoCliente");
+      final response = await dio.get("${urlAdmin()}api/get_data_cliente_codigo/$codigoCliente");
       if(response.statusCode == 200){
         final List<dynamic> jsonData = response.data as List<dynamic>;
         final List<Cliente> cliente = jsonData.map((item) => Cliente.fromJson(item)).toList();

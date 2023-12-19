@@ -4,13 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:geoclientes/config/colors.dart';
 import 'package:geoclientes/controllers/controll_gps.dart';
 import 'package:geoclientes/controllers/controll_send_visita.dart';
+import 'package:geoclientes/presentations/screens/ficha_cliente/buttons_photo2.dart';
 import 'package:geoclientes/services/api_service_imgbb.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:image/image.dart' as img;
 // import 'package:permission_handler/permission_handler.dart';
-import 'dart:typed_data';
 
 
 class BottomContent extends StatefulWidget {
@@ -31,31 +30,18 @@ class _BottomContentState extends State<BottomContent> {
 
   String imagePath= "";
 
+  bool isloading =  false;
+
   final ImagePicker _picker = ImagePicker();
   XFile? _firstPhoto;
 
   bool loadingSend = false;
 
-  Future<void> _capturePhoto() async {
-    try {
-      // Captura la foto
-      var data =_firstPhoto = await _picker.pickImage(source: ImageSource.camera);
-      setState(() {
-        _firstPhoto = data;
-      });
-    } catch (e) {
-      print('Error al tomar la foto: $e');
-    }
-  }
+  List<XFile?> listPhoto = [];
 
-  // Función para redimensionar la imagen
-img.Image resizeImage(img.Image image, int width) {
-  return img.copyResize(image, width: width);
-}
 
-Uint8List convertImageToUint8List(img.Image image) {
-  return Uint8List.fromList(img.encodePng(image));
-}
+
+
 
   Future getCurrentLocation() async {
     Position position = await controllGps.determinarPosicion();
@@ -92,7 +78,7 @@ Uint8List convertImageToUint8List(img.Image image) {
                 controller: textarea,
                 keyboardType: TextInputType.multiline,
                 maxLines: 4,
-                 style: const TextStyle(color: Colors.white),
+                 style: const TextStyle(color: Colors.black),
                 decoration: const InputDecoration( 
                     hintText: "Agregar nota",
                     hintStyle: TextStyle(color: colorBG),
@@ -110,139 +96,111 @@ Uint8List convertImageToUint8List(img.Image image) {
                 ),
               ),
               // * primer boton
-            
-             Container(
+            Container(
               margin: const EdgeInsets.only(top: 20.0),
-               child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    // * primer boton
-                    _firstPhoto == null ? ElevatedButton(
-                      onPressed: _capturePhoto,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: colorBGlIGHT, // Puedes ajustar el color del botón según tus necesidades
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40.0),
-                      ),
-                        minimumSize: const Size(20, 50), // Ancho mínimo y altura del botón
-                      ),
-                      child: const Icon(Icons.camera_alt_outlined, color: Colors.white),
-                    ) : 
-  
-  Stack(
-  children: [
-    ClipOval(
-      child: Container(
-        width: 50.0,
-        height: 50.0,
-        child: Image.memory(
-          convertImageToUint8List(
-            resizeImage(
-              img.decodeImage(File(_firstPhoto!.path).readAsBytesSync())!,
-              200,
+              child: ButtonsPhotos2(listPhoto: listPhoto,)
             ),
-          ),
-          fit: BoxFit.cover,
-        ),
-      ),
-    ),
-    Positioned(
-      top: 0,
-      right: 0,
-      child: Icon(Icons.remove_circle, size: 20, color: Colors.red), // Cambié el ícono a un ojo
-    ),
-  ],
-)
-
-
-
-
-,
-                    // * segundo boton
-                    ElevatedButton(
-                      onPressed: () {
-                        // Lógica cuando se presiona el primer botón
-                      },
-                    style: ElevatedButton.styleFrom(
-                      primary: colorBGlIGHT, // Puedes ajustar el color del botón según tus necesidades
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40.0),
-                      ),
-                      minimumSize: Size(20, 50), // Ancho mínimo y altura del botón
-                    ),
-                      child: Icon(Icons.camera_alt_outlined, color: Colors.white),
-                    ),
-                    ElevatedButton(
-                    onPressed: () {
-                      // Lógica cuando se presiona el botón
-                    },
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.white, // Establece el color de fondo como transparente
-                  onPrimary: Colors.blue, // Establece el color del borde
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40.0),
-                    side: BorderSide(color: colorBGlIGHT), // Establece el color del borde
-                  ),
-                  minimumSize: Size(20, 50), // Ancho mínimo y altura del botón
-                ),
-                child: Icon(Icons.add, color: colorBGlIGHT),
-                         ),
-                       ],
-                     ),
-             ),
              InkWell(
                 onTap: () async {
-                  // print(_firstPhoto!.path);
-
-                  final service = ApiServiceImgbb(imgPath: _firstPhoto!);
-                  var data = await service.uploadImageToImgBB();
-                  print(data);
-
-                  print("enviando");
-                  // String nota = textarea.text;             
-                  // if(nota == ""){
-                  //   _msgError();
-                  // }else{
-                  //   getCurrentLocation();
-                  //   setState(() {
-                  //     loadingSend = true;
-                  //   });
-                  //     var visita = ControllSendVisita(emailVendedor: widget.emailVendedor, codigoCliente: widget.codigoCliente, latitud: latitud, longitud: longitud, nota: nota);
-                  //     String response = await visita.sendData();
-                  //     if(response.replaceAll(RegExp(r'\s+'), '') == "ok"){
-                  //         _msgSendOk();
-                  //         Future.delayed(const Duration(seconds: 3), (){
-                  //           context.push("/list_client");
-                  //         });
-                  //     }else{
-                  //       _msgErrorSEND();
-                  //       setState(() {
-                  //           loadingSend = false;
-                  //       });
-                  //     }
-                  //     textarea.text = "";
-                  // }
+                  setState(() {
+                    isloading = true;
+                  });
+                  // ? agrega las iamgenes a un array
+                  List finalImageSended = [];
+                  for (var i = 0; i < listPhoto.length; i++) {
+                    if(listPhoto[i] != null){
+                      _firstPhoto = listPhoto[i];
+                      final service = ApiServiceImgbb(imgPath: _firstPhoto!);
+                      var data = await service.uploadImageToImgBB();
+                      finalImageSended.add(data);
+                    }
+                  }
+                  String nota = textarea.text;             
+                  if(nota == ""){
+                    _msgError();
+                  }else{
+                    getCurrentLocation();
+                    setState(() {
+                      loadingSend = true;
+                    });
+                      var visita = ControllSendVisita(emailVendedor: widget.emailVendedor, codigoCliente: widget.codigoCliente, latitud: latitud, longitud: longitud, nota: nota, listaImagenes: finalImageSended);
+                      String response = await visita.sendData();
+                      if(response.replaceAll(RegExp(r'\s+'), '') == "ok"){
+                          _msgSendOk();
+                          Future.delayed(const Duration(seconds: 3), (){
+                            context.push("/list_client");
+                          });
+                      }else{
+                        _msgErrorSEND();
+                        setState(() {
+                            loadingSend = false;
+                        });
+                      }
+                      textarea.text = "";
+                  }
+                  setState(() {
+                    isloading = false;
+                  });
                 },
                 child: 
-                    Container(
-                      margin: EdgeInsets.only(top: 30.0),
-                            height: 50,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              gradient: const LinearGradient(
-                                colors: [
-                                 colorBGlIGHT,
-                                colorBGlIGHT,
-                                ]
-                              )
-                            ),
-                            child: const Center(
-                              child: Text("Enviar", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, ),),
-                            ),
+                 isloading ? Stack(
+                children: [
+                  GestureDetector(
+                    onTap: null,
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 30.0),
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        gradient: const LinearGradient(
+                          colors: [colorBGlIGHT, colorBGlIGHT],
+                        ),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          "Enviando",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
                           ),
-                   
-                
-              )
+                        ),
+                      ),
+                    ),
+                  ),
+                  if (true)
+                    Positioned.fill(
+                      child: Container(
+                        margin: const EdgeInsets.only(top: 30.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.black45,
+                        ),
+                        child: const Center(
+                          child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                          ),
+                        ),
+                      ),
+                    ),
+                    ],
+                  ) :
+                    Container(
+                      margin: const EdgeInsets.only(top: 30.0),
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        gradient: const LinearGradient(
+                          colors: [
+                            colorBGlIGHT,
+                            colorBGlIGHT,
+                          ]
+                        )
+                      ),
+                      child: const Center(
+                        child: Text("Enviar", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, ),),
+                      ),
+                    ),
+              ),
             
           ],
         ),
@@ -346,7 +304,7 @@ class RoundIconButton extends StatelessWidget {
     return Container(
       width: 87,
       height: 50,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         shape: BoxShape.circle,
         color: Colors.blue, // Puedes ajustar el color del botón según tus necesidades
       ),

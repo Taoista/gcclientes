@@ -1,3 +1,4 @@
+import 'package:geoclientes/presentations/screens/demo/demo_sreen.dart';
 import 'package:geoclientes/presentations/screens/ficha_cliente/ficha_cliente_screen.dart';
 import 'package:geoclientes/presentations/screens/vendedores/list_clients_screen.dart';
 import 'package:geoclientes/presentations/screens/login/login_screen.dart';
@@ -6,9 +7,15 @@ import 'package:go_router/go_router.dart';
 
 appRouter(){
   return GoRouter(
+    // initialLocation: "/demo",
     initialLocation: "/login",
-    // initialLocation: "/ficha_client/16803933/avillegas@neumachile.cl",
+    // initialLocation: "/ficha_client/77026254/avillegas@neumachile.cl",
     routes: [
+      GoRoute(
+        path: '/demo',
+        name: Ddemo.name,
+        builder: (context, state) => Ddemo()
+      ),
       GoRoute(
         path: '/vendedores',
         name: VendedoresScreen.name,

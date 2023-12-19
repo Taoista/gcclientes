@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geoclientes/config/colors.dart';
 import 'package:geoclientes/config/router.dart';
 import 'package:geoclientes/controllers/controll_gps.dart';
 
@@ -33,11 +34,11 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title:"gcclientes",
+      title:"geoclientes",
       routerConfig: appRouter(),
       theme:ThemeData(
         useMaterial3: true,
-        primaryColor: Colors.purple,
+        primaryColor: colorBG,
       )
       );
   }

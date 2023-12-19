@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:geoclientes/config/configuration.dart';
 import 'package:geoclientes/config/vendedor.dart';
 
 class ApiServiceVendedores{
@@ -12,7 +13,7 @@ class ApiServiceVendedores{
   Future<List<Vendedor>> fetchVendedores() async{
 
     try {
-      final response = await dio.get("https://admin-neumachile.cl/api/get_vendedores");
+      final response = await dio.get("${urlAmind()}api/get_vendedores");
       if(response.statusCode == 200){
         final List<dynamic> jsonData = response.data;
         final List<Vendedor> clientes = jsonData.map((item) => Vendedor.fromJson(item)).toList();
@@ -25,5 +26,7 @@ class ApiServiceVendedores{
     }
 
   }
+
+
 
 }
