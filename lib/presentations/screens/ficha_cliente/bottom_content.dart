@@ -128,7 +128,7 @@ class _BottomContentState extends State<BottomContent> {
                       if(response.replaceAll(RegExp(r'\s+'), '') == "ok"){
                           _msgSendOk();
                           Future.delayed(const Duration(seconds: 3), (){
-                            context.push("/list_client");
+                            context.push("/vendedores");
                           });
                       }else{
                         _msgErrorSEND();

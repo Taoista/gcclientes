@@ -60,7 +60,12 @@ class _VendedoresScreenState extends State<VendedoresScreen> {
         backgroundColor: colorBG,
         title: const Text('Vendedores', style: TextStyle(color: Colors.white)),
       ),
-      body: Column(
+      body: WillPopScope(
+        onWillPop: () async {
+          // Aquí puedes poner tu lógica para bloquear o permitir el retroceso
+          // Si deseas bloquear el retroceso, devuelve 'false', de lo contrario, devuelve 'true'.
+          return false;
+        },child: Column(
         children: [
           Padding(
               padding: const EdgeInsets.all(8.0),
@@ -102,6 +107,7 @@ class _VendedoresScreenState extends State<VendedoresScreen> {
                 )
         ],
       ),
+    )
     );
   }
 }

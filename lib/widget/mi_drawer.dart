@@ -82,12 +82,12 @@ class _MiDrawerState extends State<MiDrawer> {
             ListTile(
               title: const Text('Cerrar Sesión'),
               onTap: () {
-                // _prefs!.remove('usuario');
-                // _prefs!.remove('nombre');
-                // _prefs!.remove('apellido');
-                // _prefs!.remove('id_rol');
-                // _prefs!.remove('rol');
-                // context.push("/login");
+                _prefs!.remove('usuario');
+                _prefs!.remove('nombre');
+                _prefs!.remove('apellido');
+                _prefs!.remove('id_rol');
+                _prefs!.remove('rol');
+                context.push("/login");
               },
             ),
           ],

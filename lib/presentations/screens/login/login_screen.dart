@@ -46,7 +46,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
 
     return Scaffold(
-      body: Container(
+      body: WillPopScope(
+        onWillPop: () async {
+          // Aquí puedes poner tu lógica para bloquear o permitir el retroceso
+          // Si deseas bloquear el retroceso, devuelve 'false', de lo contrario, devuelve 'true'.
+          return false;
+        },child : Container(
         decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/images/background_2.png'),
@@ -230,6 +235,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ),
+    )
     );
   }
     
