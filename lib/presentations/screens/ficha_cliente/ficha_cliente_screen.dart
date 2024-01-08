@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:geoclientes/config/clientes.dart';
 import 'package:geoclientes/config/colors.dart';
 import 'package:geoclientes/presentations/screens/ficha_cliente/bottom_content.dart';
+import 'package:geoclientes/presentations/screens/ficha_cliente/my_boton_nav.dart';
 import 'package:geoclientes/presentations/screens/ficha_cliente/top_content.dart';
 import 'package:geoclientes/services/api_data_cliente.dart';
 import 'package:go_router/go_router.dart';
@@ -25,6 +26,8 @@ class FichaClienteScreen extends StatefulWidget {
 class _FichaClienteScreenState extends State<FichaClienteScreen> {
   String imagePath = "";
 
+  int _currentIndex = 0;
+
 
   SharedPreferences? _prefs;
 
@@ -35,6 +38,8 @@ class _FichaClienteScreenState extends State<FichaClienteScreen> {
   bool isLoading = false;
 
   cargarPreferencias() async{
+
+
     _prefs = await SharedPreferences.getInstance();
     if(_prefs!.getString('usuario') != null){
       context.push('/login');
@@ -68,15 +73,23 @@ class _FichaClienteScreenState extends State<FichaClienteScreen> {
     return Scaffold(
       // backgroundColor: colorBG,
         
-         body: isLoading ? ListView(children: [TopContent(nombre: cliente.nombre,
-                                    rut: cliente.rut, codigo: cliente.codigo, 
-                                    telefono: cliente.telefono,
-                                    pContacto: cliente.pContacto,), BottomContent(codigoCliente: cliente.codigo,emailVendedor: widget.emailVendedor,)],) :  
+         body: isLoading ? ListView(
+          children: [
+            TopContent(nombre: cliente.nombre,
+                        rut: cliente.rut, codigo: cliente.codigo, 
+                        telefono: cliente.telefono,
+                        pContacto: cliente.pContacto,
+                        ), 
+              BottomContent(codigoCliente: cliente.codigo,emailVendedor: widget.emailVendedor,)
+              ],
+              
+              ) :  
         const Center(
           child: CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
           ),
         ), 
+         bottomNavigationBar: MyBotonNav(currentIndex: _currentIndex,),
     );
   }
 
