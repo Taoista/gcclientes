@@ -8,9 +8,9 @@ import 'package:go_router/go_router.dart';
 
 appRouter(){
   return GoRouter(
-    // initialLocation: "/checkin_cliente",
     // initialLocation: "/login",
-    initialLocation: "/ficha_client/77026254/avillegas@neumachile.cl",
+    initialLocation: "/checkin_cliente",
+    // initialLocation: "/ficha_client/77026254/avillegas@neumachile.cl",
     routes: [
       GoRoute(
         path: '/demo',
@@ -49,8 +49,8 @@ appRouter(){
       ),
        GoRoute(
         path: "/checkin_cliente",
-        name: CheckinCliente.name,
-        builder: (context, state) => const CheckinCliente()
+        name: CheckinClienteScreen.name,
+        builder: (context, state) => const CheckinClienteScreen()
       ),
     ]
   );
