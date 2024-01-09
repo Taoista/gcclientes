@@ -40,11 +40,11 @@ class _MyBotonNavState extends State<MyBotonNav> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Inicio',
+            label: 'Ficha',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: 'Perfil',
+            label: 'Formulario',
           ),
         ],
       );

@@ -21,6 +21,7 @@ class _CheckinClienteScreenState extends State<CheckinClienteScreen> {
 
   List<Formulario> formularios = [];
 
+  // bool isLoading = false;
   bool isLoading = false;
 
   void getDataFormularios() async {
@@ -52,18 +53,44 @@ class _CheckinClienteScreenState extends State<CheckinClienteScreen> {
         drawer: const MiDrawer(),
         appBar: AppBar(
           backgroundColor: colorBG,
-          title: const Text('Geo Clientes', style: TextStyle(color: Colors.white)),
+          title: const Text('Formulario', style: TextStyle(color: Colors.white)),
         ),
-        body: ListView.builder(
-            itemCount: formularios.length,
-            itemBuilder: (context, index) {
-              print(formularios[index].tipo);
-              return CardCheck(title: formularios[index].pregunta, 
-                              idFormulario: formularios[index].id,
-                              tipo: formularios[index].tipo,);
-            },
+        body: isLoading ? ListView.builder(
+        itemCount: formularios.length + 1, // Añade 1 para el botón "Enviar"
+        itemBuilder: (context, index) {
+          if (index == formularios.length) {
+            // Último elemento, es el botón "Enviar"
+            return Container(
+              margin: const EdgeInsets.only(left:40.0,right: 40.0, top: 20.0, bottom: 20.0 ),
+              height: 50,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                gradient: const LinearGradient(
+                  colors: [
+                    colorBGlIGHT,
+                    colorBGlIGHT,
+                  ]
+                )
+              ),
+              child: const Center(
+                child: Text("Enviar", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, ),),
+              ),
+            );
+          } else {
+            // Elemento del formulario
+            return CardCheck(
+              title: formularios[index].pregunta,
+              idFormulario: formularios[index].id,
+              tipo: formularios[index].tipo,
+            );
+          }
+        },
+      ) : const Center(
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
           ),
-         bottomNavigationBar: MyBotonNav(currentIndex: _currentIndex,),
+        ),
+      bottomNavigationBar: MyBotonNav(currentIndex: _currentIndex),
     );
   }
 }

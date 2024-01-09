@@ -23,7 +23,7 @@ class CardCheck extends StatelessWidget {
     
     return Card(
       elevation: 5,
-      margin: const EdgeInsets.all(30),
+      margin: const EdgeInsets.only(top: 5, bottom: 5, left: 30, right: 30),
       child: SizedBox(
         height: 170, // Ajusta la altura según tus necesidades
         child: Column(
