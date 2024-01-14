@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geoclientes/config/colors.dart';
+import 'package:geoclientes/presentations/screens/ficha_cliente/botton_mini_show_photo.dart';
+import 'package:geoclientes/presentations/screens/ficha_cliente/botton_take_photo.dart';
 
 import 'dart:io';
 import 'dart:ui';
@@ -26,20 +28,16 @@ class _ButtonsPhotos2State extends State<ButtonsPhotos2> {
 
   List<bool> listLoading = [];
 
-
-  // List<XFile?> listPhoto = [];
-
   void addPhoto(){
     bool noContieneNull = widget.listPhoto.every((element) => element != null);
-
     if(noContieneNull){
        setState(() {
         cantPhoto += 1;
+        widget.listPhoto.add(null);
         listLoading.add(false);
       });
     }else{
       _minFotos(context);
-
     }
   }
 
@@ -54,14 +52,7 @@ class _ButtonsPhotos2State extends State<ButtonsPhotos2> {
     });
   }
 
-   Uint8List convertImageToUint8List(img.Image image) {
-    return Uint8List.fromList(img.encodePng(image));
-  }
 
-  // Función para redimensionar la imagen
-  img.Image resizeImage(img.Image image, int width) {
-    return img.copyResize(image, width: width);
-  }
 
   @override
   void initState() {
@@ -79,6 +70,7 @@ class _ButtonsPhotos2State extends State<ButtonsPhotos2> {
   Widget build(BuildContext context) {
     return Column(
           children: [
+            // ? scorell donde contiene las fotos
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
@@ -109,7 +101,7 @@ class _ButtonsPhotos2State extends State<ButtonsPhotos2> {
                                   color: Colors.black45,
                                   borderRadius: BorderRadius.circular(40.0),
                                 ),
-                                child: Center(
+                                child: const Center(
                                   child: CircularProgressIndicator(
                                     valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                                   ),
@@ -118,46 +110,17 @@ class _ButtonsPhotos2State extends State<ButtonsPhotos2> {
                             ),
                         ],
                       ):
-                    ElevatedButton(
-                        onPressed: () async {
-                          await _capturePhoto(index);
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: colorBGlIGHT, // Puedes ajustar el color del botón según tus necesidades
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(40.0),
-                        ),
-                          minimumSize: const Size(20, 50), // Ancho mínimo y altura del botón
-                        ),
-                        child: const Icon(Icons.camera_alt_outlined, color: Colors.white),
-                      ) : Stack(
-                          children: [
-                            ClipOval(
-                              child: SizedBox(
-                                width: 50.0,
-                                height: 50.0,
-                                child: Image.memory(
-                                  convertImageToUint8List(
-                                    resizeImage(
-                                      img.decodeImage(File(_firstPhoto!.path).readAsBytesSync())!,
-                                      200,
-                                    ),
-                                  ),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            const Positioned(
-                              top: 0,
-                              right: 0,
-                              child: Icon(Icons.remove_circle, size: 20, color: Colors.red), // Cambié el ícono a un ojo
-                            ),
-                          ],
-                        ),
+                      // ? boton para sacar la foto
+                      BottonTakePhoton(position: index, onCapturePhoto:(index) {
+                        _capturePhoto(index);
+                      },)
+                      : 
+                      BottonMiniShowPhoto(imgPhoto: _firstPhoto)
                   ),
                 ),
               )
             ),
+            // ? insertar boton para agregar mas fotos
             ElevatedButton(
               onPressed: () {
                addPhoto();

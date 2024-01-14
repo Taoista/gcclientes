@@ -18,7 +18,10 @@ class CheckinClienteScreen extends StatefulWidget {
 }
 
 class _CheckinClienteScreenState extends State<CheckinClienteScreen> {
+  // bool get wantKeepAlive => true;
+  TextEditingController _textController = TextEditingController();
 
+  List<dynamic> checkBoxValues = [];
   List<Formulario> formularios = [];
 
   // bool isLoading = false;
@@ -30,6 +33,9 @@ class _CheckinClienteScreenState extends State<CheckinClienteScreen> {
       final data = await serviceFormularios.getFormulario();
       setState(() {
         formularios = data;
+        checkBoxValues = List.generate(formularios.length, (index) => {
+          index: {'option_1': false, 'option_2': false}
+        });
         isLoading = true;
       });
     } catch (e) {
@@ -59,29 +65,39 @@ class _CheckinClienteScreenState extends State<CheckinClienteScreen> {
         itemCount: formularios.length + 1, // Añade 1 para el botón "Enviar"
         itemBuilder: (context, index) {
           if (index == formularios.length) {
-            // Último elemento, es el botón "Enviar"
-            return Container(
-              margin: const EdgeInsets.only(left:40.0,right: 40.0, top: 20.0, bottom: 20.0 ),
-              height: 50,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                gradient: const LinearGradient(
-                  colors: [
-                    colorBGlIGHT,
-                    colorBGlIGHT,
-                  ]
-                )
-              ),
-              child: const Center(
-                child: Text("Enviar", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, ),),
+            return InkWell(
+              onTap: (){
+                for (var i = 0; i < checkBoxValues.length; i++) {
+                  print(checkBoxValues[i]);
+                }
+              },
+              child: Container(
+                margin: const EdgeInsets.only(left:40.0,right: 40.0, top: 20.0, bottom: 20.0 ),
+                height: 50,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  gradient: const LinearGradient(
+                    colors: [
+                      colorBGlIGHT,
+                      colorBGlIGHT,
+                    ]
+                  )
+                ),
+                child: const Center(
+                  child: Text("Enviar", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, ),),
+                ),
               ),
             );
           } else {
-            // Elemento del formulario
+            // ? Elemento del formulario
             return CardCheck(
               title: formularios[index].pregunta,
               idFormulario: formularios[index].id,
               tipo: formularios[index].tipo,
+              optionSelected: checkBoxValues,
+              position: index,
+              textController:_textController,
+
             );
           }
         },

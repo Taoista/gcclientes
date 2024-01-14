@@ -7,8 +7,11 @@ import 'package:geoclientes/config/colors.dart';
 class ButtonsOption extends StatefulWidget {
 
   final int idFormulario;
+  dynamic optionSelected;
+  final int indexOption;
+  
 
-  const ButtonsOption({super.key, required this.idFormulario});
+  ButtonsOption({Key? key, required this.idFormulario, required this.optionSelected, required this.indexOption}) : super(key: key);
 
   @override
   State<ButtonsOption> createState() => _ButtonsOptionState();
@@ -17,6 +20,13 @@ class ButtonsOption extends StatefulWidget {
 class _ButtonsOptionState extends State<ButtonsOption> {
   bool inPressedA = false;
   bool inPressedB = false;
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +41,8 @@ class _ButtonsOptionState extends State<ButtonsOption> {
                   onTap: () {
                     setState(() {
                       inPressedA = !inPressedA;
+                      inPressedB = false;
+                      widget.optionSelected[widget.indexOption] = {widget.indexOption : {'option_1': false, 'option_2': false}};
                     });
                   },
                   child: Container(
@@ -38,26 +50,26 @@ class _ButtonsOptionState extends State<ButtonsOption> {
                       color: colorBGlIGHT, // Fondo verde
                       borderRadius: BorderRadius.circular(30.0), // Borde circular
                     ),
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Container(
                           width: 30,
                           height: 30,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                             color: Colors.white, // Cambiado a color blanco
                           ),
-                          child: Center(
+                          child: const Center(
                             child: Icon(
                               Icons.check,
                               color: colorBGlIGHT, // Cambiado a color verde
                             ),
                           ),
                         ),
-                        SizedBox(width: 10),
-                        Text(
+                        const SizedBox(width: 10),
+                        const Text(
                           'Si',
                           style: TextStyle(fontSize: 16, color: Colors.white), // Cambiado a color blanco
                         ),
@@ -69,7 +81,10 @@ class _ButtonsOptionState extends State<ButtonsOption> {
               const SizedBox(height: 10),
             ],
           ),
-        ) : Expanded(
+        ) 
+        :
+        // ? boton sin presionar 
+        Expanded(
         child: Column(
           children: [
             InkWell(
@@ -77,6 +92,7 @@ class _ButtonsOptionState extends State<ButtonsOption> {
                 setState(() {
                   inPressedA = !inPressedA;
                   inPressedB = false;
+                  widget.optionSelected[widget.indexOption] = {widget.indexOption : {'option_1': true, 'option_2': false}};
                 });
               },
               child: Container(
@@ -123,6 +139,7 @@ class _ButtonsOptionState extends State<ButtonsOption> {
                   onTap: () {
                     setState(() {
                       inPressedB = !inPressedB;
+                      widget.optionSelected[widget.indexOption] =  {widget.indexOption : {'option_1': false, 'option_2': false}};
                     });
                   },
                   child: Container(
@@ -130,26 +147,26 @@ class _ButtonsOptionState extends State<ButtonsOption> {
                       color: colorBGlIGHT, // Fondo verde
                       borderRadius: BorderRadius.circular(30.0), // Borde circular
                     ),
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Container(
                           width: 30,
                           height: 30,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                             color: Colors.white, // Cambiado a color blanco
                           ),
-                          child: Center(
+                          child: const Center(
                             child: Icon(
                               Icons.check,
                               color: colorBGlIGHT, // Cambiado a color verde
                             ),
                           ),
                         ),
-                        SizedBox(width: 10),
-                        Text(
+                        const SizedBox(width: 10),
+                        const Text(
                           'Si',
                           style: TextStyle(fontSize: 16, color: Colors.white), // Cambiado a color blanco
                         ),
@@ -168,6 +185,7 @@ class _ButtonsOptionState extends State<ButtonsOption> {
                 setState(() {
                   inPressedB = !inPressedB;
                   inPressedA = false;
+                  widget.optionSelected[widget.indexOption] = {widget.indexOption : {'option_1': false, 'option_2': true}};
                 });
               },
               child: Container(

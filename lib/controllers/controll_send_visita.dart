@@ -30,7 +30,6 @@ class ControllSendVisita{
     try {
       var postData = visita();
       Response response = await dio.post("https://admin-neumachile.cl/api/create_new_visita"
-      // Response response = await dio.post("http://localhost:8000/api/create_new_visita"
         , data: postData);
         return response.data;
     } catch (e) {

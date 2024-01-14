@@ -22,8 +22,9 @@ class BottomContent extends StatefulWidget {
 }
 
 class _BottomContentState extends State<BottomContent> {
-
   ControllGps controllGps = ControllGps();
+
+  TextEditingController textarea = TextEditingController();
 
   String latitud = "";
   String longitud = "";
@@ -38,9 +39,6 @@ class _BottomContentState extends State<BottomContent> {
   bool loadingSend = false;
 
   List<XFile?> listPhoto = [];
-
-
-
 
 
   Future getCurrentLocation() async {
@@ -60,7 +58,6 @@ class _BottomContentState extends State<BottomContent> {
 
   @override
   Widget build(BuildContext context) {
-     TextEditingController textarea = TextEditingController();
     return Container(
       // height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
@@ -100,113 +97,91 @@ class _BottomContentState extends State<BottomContent> {
               margin: const EdgeInsets.only(top: 20.0),
               child: ButtonsPhotos2(listPhoto: listPhoto,)
             ),
-             InkWell(
-                onTap: () async {
-                  setState(() {
-                    isloading = true;
-                  });
-                  // ? agrega las iamgenes a un array
-                  List finalImageSended = [];
-                  for (var i = 0; i < listPhoto.length; i++) {
-                    if(listPhoto[i] != null){
-                      _firstPhoto = listPhoto[i];
-                      final service = ApiServiceImgbb(imgPath: _firstPhoto!);
-                      var data = await service.uploadImageToImgBB();
-                      finalImageSended.add(data);
-                    }
-                  }
-                  String nota = textarea.text;             
-                  if(nota == ""){
-                    _msgError();
-                  }else{
-                    getCurrentLocation();
-                    setState(() {
-                      loadingSend = true;
-                    });
-                      var visita = ControllSendVisita(emailVendedor: widget.emailVendedor, codigoCliente: widget.codigoCliente, latitud: latitud, longitud: longitud, nota: nota, listaImagenes: finalImageSended);
-                      String response = await visita.sendData();
-                      if(response.replaceAll(RegExp(r'\s+'), '') == "ok"){
-                          _msgSendOk();
-                          Future.delayed(const Duration(seconds: 3), (){
-                            context.push("/vendedores");
-                          });
-                      }else{
-                        _msgErrorSEND();
-                        setState(() {
-                            loadingSend = false;
-                        });
-                      }
-                      textarea.text = "";
-                  }
-                  setState(() {
-                    isloading = false;
-                  });
-                },
-                child: 
-                 isloading ? Stack(
-                children: [
-                  GestureDetector(
-                    onTap: null,
-                    child: Container(
-                      margin: const EdgeInsets.only(top: 30.0),
-                      height: 50,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        gradient: const LinearGradient(
-                          colors: [colorBGlIGHT, colorBGlIGHT],
-                        ),
-                      ),
-                      child: const Center(
-                        child: Text(
-                          "Enviando",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
+
+            // * boton aceptar
+            isloading ? 
+              Container(
+                margin: const EdgeInsets.only(top: 30.0),
+                height: 50,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                    gradient: const LinearGradient(
+                      colors: [
+                        colorBGlIGHT,
+                        colorBGlIGHT,
+                      ]
+                    )
+                  ),
+                  child: const Center(
+                    child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                     ),
                   ),
-                  if (true)
-                    Positioned.fill(
-                      child: Container(
-                        margin: const EdgeInsets.only(top: 30.0),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.black45,
-                        ),
-                        child: const Center(
-                          child: CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                          ),
-                        ),
-                      ),
+              ) : InkWell(
+              onTap: () async {
+                sendData(textarea.text);
+              },
+              child: 
+                 Container(
+                  margin: const EdgeInsets.only(top: 30.0),
+                  height: 50,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                      gradient:  const LinearGradient(
+                        colors: [
+                          colorBGlIGHT,
+                          colorBGlIGHT,
+                        ]
+                      )
                     ),
-                    ],
-                  ) :
-                    Container(
-                      margin: const EdgeInsets.only(top: 30.0),
-                      height: 50,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        gradient: const LinearGradient(
-                          colors: [
-                            colorBGlIGHT,
-                            colorBGlIGHT,
-                          ]
-                        )
-                      ),
-                      child: const Center(
-                        child: Text("Enviar", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, ),),
-                      ),
+                    child:  const Center(
+                      child: Text("Enviar", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, ),),
                     ),
-              ),
-            
+                ),
+            )
+         
           ],
         ),
       ),
     );
   }
+
+  Future<void>sendData(String textarea) async {
+      // ? agrega las iamgenes a un array
+      setState(() {
+        isloading = true;
+      });
+
+      List finalImageSended = [];
+      for (var i = 0; i < listPhoto.length; i++) {
+        if(listPhoto[i] != null){
+          _firstPhoto = listPhoto[i];
+          final service = ApiServiceImgbb(imgPath: _firstPhoto!);
+          var data = await service.uploadImageToImgBB();
+          finalImageSended.add(data);
+        }
+      }
+      String nota = textarea;             
+      if(nota == ""){
+        _msgError();
+      }else{
+        getCurrentLocation();
+           
+        var visita = ControllSendVisita(emailVendedor: widget.emailVendedor, codigoCliente: widget.codigoCliente, latitud: latitud, longitud: longitud, nota: nota, listaImagenes: finalImageSended);
+        String response = await visita.sendData();
+        if(response.replaceAll(RegExp(r'\s+'), '') == "ok"){
+          _msgSendOk();
+          
+        }else{
+          _msgErrorSEND();
+        }
+        textarea = "";
+      }
+      setState(() {
+        isloading = false;
+      });
+    }
+
 
   Future<void> _msgError() async {
     return showDialog<void>(
@@ -255,7 +230,7 @@ class _BottomContentState extends State<BottomContent> {
             TextButton(
               child: const Text('Aceptar'),
               onPressed: () {
-                 context.push("/list_client");
+                 context.push("/vendedores");
               },
             ),
           ],
@@ -263,7 +238,7 @@ class _BottomContentState extends State<BottomContent> {
       },
     );
   }
-
+  // aveces salta este error
   Future<void> _msgErrorSEND() async {
     return showDialog<void>(
       context: context,

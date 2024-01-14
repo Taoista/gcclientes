@@ -75,21 +75,21 @@ class _FichaClienteScreenState extends State<FichaClienteScreen> {
         
          body: isLoading ? ListView(
           children: [
-            TopContent(nombre: cliente.nombre,
-                        rut: cliente.rut, codigo: cliente.codigo, 
-                        telefono: cliente.telefono,
-                        pContacto: cliente.pContacto,
-                        ), 
-              BottomContent(codigoCliente: cliente.codigo,emailVendedor: widget.emailVendedor,)
-              ],
+                TopContent(nombre: cliente.nombre,
+                            rut: cliente.rut, codigo: cliente.codigo, 
+                            telefono: cliente.telefono,
+                            pContacto: cliente.pContacto,
+                            ), 
+                BottomContent(codigoCliente: cliente.codigo,emailVendedor: widget.emailVendedor,)
+          ],
               
-              ) :  
+        ) :  
         const Center(
           child: CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
           ),
         ), 
-         bottomNavigationBar: MyBotonNav(currentIndex: _currentIndex,),
+        //  bottomNavigationBar: MyBotonNav(currentIndex: _currentIndex,),
     );
   }
 
