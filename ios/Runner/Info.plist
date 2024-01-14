@@ -39,12 +39,10 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Se necesita acceso a la cámara para tomar fotos.</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Requerimos tu ubicación para ofrecerte servicios personalizados basados en tu posición.</string>
+	
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Necesitamos acceder a tu ubicación</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Necesitamos acceder a tus fotos para que puedas seleccionar una imagen de perfil.</string>
+	
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
