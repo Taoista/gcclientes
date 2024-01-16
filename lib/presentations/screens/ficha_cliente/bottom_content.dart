@@ -33,7 +33,7 @@ class _BottomContentState extends State<BottomContent> {
 
   bool isloading =  false;
 
-  final ImagePicker _picker = ImagePicker();
+  // final ImagePicker _picker = ImagePicker();
   XFile? _firstPhoto;
 
   bool loadingSend = false;
