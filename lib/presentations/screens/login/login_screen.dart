@@ -1,9 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:geoclientes/config/login_user.dart';
-import 'package:geoclientes/controllers/controll_session.dart';
 import 'package:geoclientes/presentations/screens/login/button_login.dart';
-import 'package:geoclientes/presentations/screens/login/top_icons.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,7 +16,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
+  TextEditingController _textFieldUser = TextEditingController();
+  TextEditingController _textFieldPassword = TextEditingController();
   SharedPreferences? _prefs;
 
 
@@ -41,9 +39,8 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
 
-  TextEditingController _textFieldUser = TextEditingController();
-  TextEditingController _textFieldPassword = TextEditingController();
 
+   final FocusNode _textFieldFocusNode = FocusNode();
 
     return Scaffold(
       body: WillPopScope(
@@ -61,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              Container(
+              SizedBox(
                 height: 850,
                 child: 
                 Stack(
@@ -151,6 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       width: MediaQuery.of(context).size.width * 0.8,
                       // height: 200,
                       child: FadeInUp(duration: const  Duration(milliseconds: 1300), child: TextField(
+                        // focusNode: _textFieldFocusNode, 
                         controller: _textFieldUser,
                         style: const TextStyle(color: Colors.black), // Color del texto dentro del TextField
                         decoration: InputDecoration(
@@ -173,6 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       width: MediaQuery.of(context).size.width * 0.8,
                       // height: 200,
                       child: FadeInUp(duration: const  Duration(milliseconds: 1300), child: TextField(
+                        //  focusNode: _textFieldFocusNode, 
                         obscureText: true,
                         controller: _textFieldPassword,
                         style: const TextStyle(color: Colors.black), // Color del texto dentro del TextField
