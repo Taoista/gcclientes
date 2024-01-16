@@ -16,8 +16,9 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController _textFieldUser = TextEditingController();
-  TextEditingController _textFieldPassword = TextEditingController();
+  final TextEditingController _textFieldUser = TextEditingController();
+  final TextEditingController _textFieldPassword = TextEditingController();
+
   SharedPreferences? _prefs;
 
 
@@ -40,7 +41,6 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
 
 
-   final FocusNode _textFieldFocusNode = FocusNode();
 
     return Scaffold(
       body: WillPopScope(
