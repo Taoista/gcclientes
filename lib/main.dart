@@ -33,9 +33,12 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    
     return MaterialApp.router(
+      
       title:"geoclientes",
       routerConfig: appRouter(),
+      debugShowCheckedModeBanner: false,
       theme:ThemeData(
         useMaterial3: true,
         primaryColor: colorBG,
