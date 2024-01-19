@@ -41,17 +41,17 @@ class _MiDrawerState extends State<MiDrawer> {
           children: [
             // Encabezado del Drawer
             DrawerHeader(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.blue,
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CircleAvatar(
+                  const CircleAvatar(
                     radius: 40,
                     backgroundImage: AssetImage('assets/images/icon-yellow-user.png'), // Reemplaza con la ruta de tu imagen
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Text(
                     nombre,
                     style: const TextStyle(
@@ -71,9 +71,15 @@ class _MiDrawerState extends State<MiDrawer> {
             ),
             // Elemento de menú "Inicio"
             ListTile(
-              title: Text('Inicio'),
+              title: const Text('Inicio'),
               onTap: () {
                 context.push("/vendedores");
+              },
+            ),
+            ListTile(
+              title: const Text('Crear Cliente'),
+              onTap: () {
+                context.push("/crear_cliente");
               },
             ),
             // Línea de separación

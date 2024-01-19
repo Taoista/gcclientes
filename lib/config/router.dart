@@ -1,4 +1,5 @@
 import 'package:geoclientes/presentations/screens/checkoin_cliente/checkin_cliente.dart';
+import 'package:geoclientes/presentations/screens/create_cliente/crear_cliente.dart';
 import 'package:geoclientes/presentations/screens/demo/demo_sreen.dart';
 import 'package:geoclientes/presentations/screens/ficha_cliente/ficha_cliente_screen.dart';
 import 'package:geoclientes/presentations/screens/vendedores/list_clients_screen.dart';
@@ -9,7 +10,7 @@ import 'package:go_router/go_router.dart';
 appRouter(){
   return GoRouter(
     initialLocation: "/login",
-    // initialLocation: "/checkin_cliente",
+    // initialLocation: "/crear_cliente",
     // initialLocation: "/ficha_client/77026254/avillegas@neumachile.cl",
     routes: [
       GoRoute(
@@ -51,6 +52,11 @@ appRouter(){
         path: "/checkin_cliente",
         name: CheckinClienteScreen.name,
         builder: (context, state) => const CheckinClienteScreen()
+      ),
+       GoRoute(
+        path: "/crear_cliente",
+        name: CrearCliente.name,
+        builder: (context, state) => const CrearCliente()
       ),
     ]
   );
