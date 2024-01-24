@@ -2,12 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
- 	<!-- Otras claves existentes ... -->
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>Necesitamos acceso a la cámara para que puedas capturar fotos de las necesidades del cliente y mejorar la experiencia de servicio.</string>
-    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-    <string>Necesitamos acceder a tu ubicación para proporcionar servicios personalizados, como mostrar la ubicación del cliente en el mapa.</string>
-    <!-- Otras claves existentes ... -->
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
@@ -39,10 +33,12 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Necesitamos acceso a la cámara para que puedas capturar fotos de las necesidades del cliente y mejorar la experiencia de servicio..</string>
-	
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Necesitamos acceder a tu ubicación para proporcionar servicios personalizados, como mostrar la ubicación del cliente en el mapa.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Necesitamos acceder a tu ubicación para proporcionar servicios personalizados, como mostrar la ubicación del cliente en el mapa.</string>
-	
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Necesitamos acceso a la cámara para que puedas capturar fotos de las necesidades del cliente y mejorar la experiencia de servicio.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
