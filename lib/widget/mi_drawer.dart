@@ -76,6 +76,12 @@ class _MiDrawerState extends State<MiDrawer> {
                 context.push("/vendedores");
               },
             ),
+             ListTile(
+              title: const Text('Buscar Cliente'),
+              onTap: () {
+                context.push("/buscar_clientes_all");
+              },
+            ),
             ListTile(
               title: const Text('Crear Cliente'),
               onTap: () {

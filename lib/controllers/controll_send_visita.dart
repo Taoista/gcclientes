@@ -7,21 +7,24 @@ class ControllSendVisita{
   final String latitud;
   final String longitud;
   final String nota;
+  final String userEmail;
   final List<dynamic> listaImagenes;
 
   ControllSendVisita({required this.emailVendedor, required this.codigoCliente, required this.latitud,
-                      required this.longitud, required this.nota, required this.listaImagenes});
+                      required this.longitud, required this.nota, required this.listaImagenes, required this.userEmail});
 
   Dio dio = Dio();
 
   Map visita(){
     Map<String, dynamic> postData = {
       'email_vendedor': emailVendedor,
+      'email_register': userEmail,
       'codigo_cliente': codigoCliente,
       'latitud' : latitud,
       'longitud': longitud,
       'nota': nota,
-      'lista_imagenes':listaImagenes
+      'lista_imagenes':listaImagenes,
+      'userEmail': listaImagenes
     };
     return postData;
   }
@@ -33,7 +36,6 @@ class ControllSendVisita{
         , data: postData);
         return response.data;
     } catch (e) {
-      print(e);
       return "error";
     }
   }

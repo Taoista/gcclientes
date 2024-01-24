@@ -1,24 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:geoclientes/config/clientes.dart';
 import 'package:geoclientes/config/colors.dart';
-import 'package:geoclientes/services/api_clientes.dart';
+import 'package:geoclientes/services/api_clientes_all.dart';
 import 'package:geoclientes/widget/list_card_cliente.dart';
 import 'package:geoclientes/widget/mi_drawer.dart';
-import 'package:go_router/go_router.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 
-class ListClientsScreen extends StatefulWidget {
-  static const String name = "list_clients";
-  final String emailVendedor;
-  const ListClientsScreen({super.key, required this.emailVendedor});
+
+class BuscarClientes extends StatefulWidget {
+  static const String name = "buscar_clientes";
+
+  const BuscarClientes({super.key});
 
   @override
-  State<ListClientsScreen> createState() => _ListClientsScreenState();
+  State<BuscarClientes> createState() => _BuscarClientesState();
 }
 
-class _ListClientsScreenState extends State<ListClientsScreen> {
-
+class _BuscarClientesState extends State<BuscarClientes> {
 
   List<Cliente> clientes = [];
 
@@ -29,7 +27,7 @@ class _ListClientsScreenState extends State<ListClientsScreen> {
   void getClients() async {
     try {
 
-        final serviceClientes = ApiServiceClientes(userMail: widget.emailVendedor);
+        final serviceClientes = ApiServiceClientesAll();
         var data = await serviceClientes.fetchClientes();
         setState(() {
           clientesFiltrados = data;
@@ -42,35 +40,36 @@ class _ListClientsScreenState extends State<ListClientsScreen> {
     
   }
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getClients();
+  }
+
 
   void filtrarClientes(String filtro) {
     setState(() {
       if (filtro.isEmpty) {
       clientesFiltrados = clientes;
     } else {
-      clientesFiltrados = clientesFiltrados
+      clientesFiltrados = clientes
           .where((cliente) =>
-              cliente.nombre.toLowerCase().contains(filtro.toLowerCase()))
+              cliente.nombre.toLowerCase().contains(filtro.toLowerCase()) ||
+              cliente.codigo.toLowerCase().contains(filtro.toLowerCase()))
           .toList();
     }
     });
   }
 
   @override
-  void initState() {
-    super.initState();
-    // cargarPreferencias();
-    getClients();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-        backgroundColor: colorBG,
-        drawer: const MiDrawer(),
+    return Scaffold(
+      backgroundColor: colorBG,
+       drawer: const MiDrawer(),
         appBar: AppBar(
           backgroundColor: colorBG,
-          title: const Text('Geo Clientes', style: TextStyle(color: Colors.white)),
+          title: const Text('Buscar clientes', style: TextStyle(color: Colors.white)),
         ),
         body: Column(
           children: [
@@ -93,7 +92,7 @@ class _ListClientsScreenState extends State<ListClientsScreen> {
                 itemCount: clientesFiltrados.length,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    title: ListCardCliente(cliente: clientesFiltrados[index],emailVendedor: widget.emailVendedor,),
+                    title: ListCardCliente(cliente: clientesFiltrados[index],emailVendedor: "demo@demo.cl",),
                   );
                 },
               ),
@@ -115,6 +114,6 @@ class _ListClientsScreenState extends State<ListClientsScreen> {
                 ),
           ],
         ),
-      );
+    );
   }
 }

@@ -2,10 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:geoclientes/config/clientes.dart';
 import 'package:geoclientes/config/configuration.dart';
 
-class ApiServiceClientes{
-  String userMail;
+class ApiServiceClientesAll{
 
-  ApiServiceClientes({required this.userMail});
+  ApiServiceClientesAll();
 
 
   var dio = Dio();
@@ -13,7 +12,7 @@ class ApiServiceClientes{
 
   Future<List<Cliente>> fetchClientes() async{
     try {
-      final response = await dio.get("${urlPremium()}api/get_clientes/$userMail");
+      final response = await dio.get("${urlPremium()}api/get-data-clientes-all");
       if(response.statusCode == 200){
         final List<dynamic> jsonData = response.data;
         // print(jsonData);

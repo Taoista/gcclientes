@@ -9,6 +9,7 @@ import 'package:geoclientes/services/api_service_imgbb.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:permission_handler/permission_handler.dart';
 
 
@@ -33,6 +34,8 @@ class _BottomContentState extends State<BottomContent> {
 
   bool isloading =  false;
 
+  SharedPreferences? _prefs;
+
   // final ImagePicker _picker = ImagePicker();
   XFile? _firstPhoto;
 
@@ -40,6 +43,7 @@ class _BottomContentState extends State<BottomContent> {
 
   List<XFile?> listPhoto = [];
 
+  String userEmail = "";
 
   Future getCurrentLocation() async {
     Position position = await controllGps.determinarPosicion();
@@ -49,12 +53,24 @@ class _BottomContentState extends State<BottomContent> {
     });
   }
 
+  cargarPreferencias() async{
+    _prefs = await SharedPreferences.getInstance();
+    String? userEmail = _prefs!.getString('usuario');
+   
+  }
+
+
   @override
   void initState() {
     super.initState();
     controllGps.determinarPosicion();
     getCurrentLocation();
+    cargarPreferencias();
+    // _prefs!.getString('usuario');
   }
+
+  
+
 
   @override
   Widget build(BuildContext context) {
@@ -167,7 +183,10 @@ class _BottomContentState extends State<BottomContent> {
       }else{
         getCurrentLocation();
            
-        var visita = ControllSendVisita(emailVendedor: widget.emailVendedor, codigoCliente: widget.codigoCliente, latitud: latitud, longitud: longitud, nota: nota, listaImagenes: finalImageSended);
+        var visita = ControllSendVisita(emailVendedor: widget.emailVendedor, 
+                                        codigoCliente: widget.codigoCliente, 
+                                        latitud: latitud, longitud: longitud, 
+                                        nota: nota, listaImagenes: finalImageSended, userEmail: userEmail);
         String response = await visita.sendData();
         if(response.replaceAll(RegExp(r'\s+'), '') == "ok"){
           _msgSendOk();
