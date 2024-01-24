@@ -7,7 +7,7 @@ class ControllSendVisita{
   final String latitud;
   final String longitud;
   final String nota;
-  final String userEmail;
+  final String? userEmail;
   final List<dynamic> listaImagenes;
 
   ControllSendVisita({required this.emailVendedor, required this.codigoCliente, required this.latitud,
@@ -18,7 +18,7 @@ class ControllSendVisita{
   Map visita(){
     Map<String, dynamic> postData = {
       'email_vendedor': emailVendedor,
-      'email_register': userEmail,
+      'email_rgister': userEmail,
       'codigo_cliente': codigoCliente,
       'latitud' : latitud,
       'longitud': longitud,
@@ -29,7 +29,16 @@ class ControllSendVisita{
     return postData;
   }
 
+  // "email_vendedor": "demo@neumachile.cl",
+  // "email_rgister": "avillegas@neumachile.cl",
+  // "codigo_cliente": "16803933",
+  // "latitud": 40.7128,
+  // "longitud": -74.0060,
+  // "nota": "de json",
+  // "lista_imagenes": ["imagen1.jpg", "imagen2.jpg"]
+
   Future sendData() async {
+    // print("hola mund$userEmail");
     try {
       var postData = visita();
       Response response = await dio.post("https://admin-neumachile.cl/api/create_new_visita"

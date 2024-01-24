@@ -43,7 +43,7 @@ class _BottomContentState extends State<BottomContent> {
 
   List<XFile?> listPhoto = [];
 
-  String userEmail = "";
+  String? userEmail = "";
 
   Future getCurrentLocation() async {
     Position position = await controllGps.determinarPosicion();
@@ -55,8 +55,8 @@ class _BottomContentState extends State<BottomContent> {
 
   cargarPreferencias() async{
     _prefs = await SharedPreferences.getInstance();
-    String? userEmail = _prefs!.getString('usuario');
-   
+    userEmail = _prefs!.getString('usuario');
+  //  print(userEmail);
   }
 
 
@@ -182,7 +182,7 @@ class _BottomContentState extends State<BottomContent> {
         _msgError();
       }else{
         getCurrentLocation();
-           
+        
         var visita = ControllSendVisita(emailVendedor: widget.emailVendedor, 
                                         codigoCliente: widget.codigoCliente, 
                                         latitud: latitud, longitud: longitud, 
