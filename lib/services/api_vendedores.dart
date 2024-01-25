@@ -13,6 +13,7 @@ class ApiServiceVendedores{
   Future<List<Vendedor>> fetchVendedores() async{
 
     try {
+      // final response = await dio.get("${urlAmind()}api/get_vendedores");
       final response = await dio.get("${urlAmind()}api/get_vendedores");
       if(response.statusCode == 200){
         final List<dynamic> jsonData = response.data;

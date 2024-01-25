@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:geoclientes/config/configuration.dart';
 
 class ControllSendVisita{
 
@@ -41,7 +42,7 @@ class ControllSendVisita{
     // print("hola mund$userEmail");
     try {
       var postData = visita();
-      Response response = await dio.post("https://admin-neumachile.cl/api/create_new_visita"
+      Response response = await dio.post("${urlAmind()}api/create_new_visita"
         , data: postData);
         return response.data;
     } catch (e) {

@@ -12,30 +12,7 @@ class ApiServiceImgbb{
 
   String apiKey = "2f5842f29fbe5fbf35650b0395f48ea0";
 
-  // Future<String?> uploadImageToImgBB() async {
-  //   try {
-  //     String apiUrl = 'https://api.imgbb.com/1/upload';
-      
-  //     Dio dio = Dio();
 
-  //     FormData formData = FormData.fromMap({
-  //       'key': apiKey,
-  //       'image': await MultipartFile.fromFile(imgPath.path),
-  //     });
-
-  //     Response response = await dio.post(apiUrl, data: formData);
-
-  //     if (response.statusCode == 200) {
-  //       final Map<String, dynamic> data = response.data;
-  //       final imageUrl = data['data']['url'];
-  //       return imageUrl;
-  //     } else {
-  //       return null;
-  //     }
-  //   } catch (error) {
-  //     return null;
-  //   }
-  // }
 
   Future<String?> uploadImageToImgBB() async {
     try {
