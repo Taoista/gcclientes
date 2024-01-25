@@ -82,12 +82,13 @@ class _MiDrawerState extends State<MiDrawer> {
                 context.push("/buscar_clientes_all");
               },
             ),
-            ListTile(
-              title: const Text('Crear Cliente'),
-              onTap: () {
-                context.push("/crear_cliente");
-              },
-            ),
+            // ! desbailitado ya que borre la feature o el branch
+            // ListTile(
+            //   title: const Text('Crear Cliente'),
+            //   onTap: () {
+            //     context.push("/crear_cliente");
+            //   },
+            // ),
             // Línea de separación
             const Divider(),
             // Elemento de menú "Cerrar Sesión"
