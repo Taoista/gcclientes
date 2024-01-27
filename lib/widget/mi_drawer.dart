@@ -83,12 +83,12 @@ class _MiDrawerState extends State<MiDrawer> {
               },
             ),
             // ! desbailitado ya que borre la feature o el branch
-            // ListTile(
-            //   title: const Text('Crear Cliente'),
-            //   onTap: () {
-            //     context.push("/crear_cliente");
-            //   },
-            // ),
+            ListTile(
+              title: const Text('Crear Cliente'),
+              onTap: () {
+                context.push("/checkin_cliente");
+              },
+            ),
             // Línea de separación
             const Divider(),
             // Elemento de menú "Cerrar Sesión"
