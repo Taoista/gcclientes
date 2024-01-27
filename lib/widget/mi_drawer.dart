@@ -86,7 +86,7 @@ class _MiDrawerState extends State<MiDrawer> {
             ListTile(
               title: const Text('Crear Cliente'),
               onTap: () {
-                context.push("/checkin_cliente");
+                context.push("/crear_cliente");
               },
             ),
             // Línea de separación

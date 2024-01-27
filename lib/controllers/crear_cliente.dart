@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:geoclientes/config/configuration.dart';
 import 'package:geoclientes/config/crear_clientes/slider_credito.dart';
 import 'package:geoclientes/config/crear_clientes/slider_datos_bancarios.dart';
 import 'package:geoclientes/config/crear_clientes/slider_forma_condiciones_pago.dart';
@@ -123,7 +124,7 @@ class CrearCliente{
     var postData = dataGeneral();
     try {
       var postData = dataGeneral();
-      Response response = await dio.post("https://admin-neumachile.cl/api/create_cliente_form"
+      Response response = await dio.post("${urlAmind()}api/create_cliente_form"
         , data: postData);
         return response.data['message'];
     } catch (e) {
