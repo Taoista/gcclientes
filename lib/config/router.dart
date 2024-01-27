@@ -1,3 +1,4 @@
+import 'package:geoclientes/presentations/screens/buscar_cliente/buscar_clientes.dart';
 import 'package:geoclientes/presentations/screens/checkoin_cliente/checkin_cliente.dart';
 import 'package:geoclientes/presentations/screens/create_cliente/crear_cliente_screen.dart';
 import 'package:geoclientes/presentations/screens/demo/demo_sreen.dart';
@@ -57,6 +58,11 @@ appRouter(){
         path: "/crear_cliente",
         name: CrearClientesScreen.name,
         builder: (context, state) => const CrearClientesScreen()
+      ),
+        GoRoute(
+        path: "/buscar_clientes_all",
+        name: BuscarClientes.name,
+        builder: (context, state) => const BuscarClientes()
       ),
     ]
   );
