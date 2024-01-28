@@ -22,7 +22,9 @@ class _TextFieldOptionState extends State<TextFieldOption> {
     return TextField(
             onChanged: (value){
               // widget.optionSelected[widget.optionSelected.length] = value;
-              widget.optionSelected[widget.indexOption] = {widget.indexOption: {value}};
+              widget.optionSelected[widget.indexOption] = {widget.indexOption: {
+                'id_formulario':widget.idFormulario, "value":value}
+                };
             },
             controller: widget.textController,
               decoration: const InputDecoration(

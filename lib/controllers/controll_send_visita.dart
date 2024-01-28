@@ -25,7 +25,7 @@ class ControllSendVisita{
       'longitud': longitud,
       'nota': nota,
       'lista_imagenes':listaImagenes,
-      'userEmail': listaImagenes
+      'userEmail': listaImagenes // ! no se usa verificar
     };
     return postData;
   }

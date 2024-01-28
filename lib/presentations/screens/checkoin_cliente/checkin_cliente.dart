@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:geoclientes/config/colors.dart';
 import 'package:geoclientes/config/formulario.dart';
 import 'package:geoclientes/controllers/controll_formulario.dart';
+import 'package:geoclientes/controllers/controll_send_formulario.dart';
 import 'package:geoclientes/presentations/screens/checkoin_cliente/card_check.dart';
 import 'package:geoclientes/presentations/screens/ficha_cliente/my_boton_nav.dart';
 import 'package:geoclientes/widget/mi_drawer.dart';
@@ -10,8 +11,9 @@ import 'package:geoclientes/widget/mi_drawer.dart';
 class CheckinClienteScreen extends StatefulWidget {
   static const String name = "checkin_cliente";
 
+  // final List checkBoxValues;
 
-  const CheckinClienteScreen({super.key});
+  const CheckinClienteScreen({Key? key}) : super(key: key);
 
   @override
   State<CheckinClienteScreen> createState() => _CheckinClienteScreenState();
@@ -33,8 +35,9 @@ class _CheckinClienteScreenState extends State<CheckinClienteScreen> {
       final data = await serviceFormularios.getFormulario();
       setState(() {
         formularios = data;
+
         checkBoxValues = List.generate(formularios.length, (index) => {
-          index: {'option_1': false, 'option_2': false}
+          index.toString(): {"id_formulario":formularios[index].id,"option_1": false, "option_2": false}
         });
         isLoading = true;
       });
@@ -66,10 +69,16 @@ class _CheckinClienteScreenState extends State<CheckinClienteScreen> {
         itemBuilder: (context, index) {
           if (index == formularios.length) {
             return InkWell(
-              onTap: (){
-                for (var i = 0; i < checkBoxValues.length; i++) {
-                  print(checkBoxValues[i]);
-                }
+              onTap: () async {
+           
+                final controll =  ControllSendFormulario(formulario: checkBoxValues);
+
+                var dat = await controll.sendFormular();
+
+                print(dat);
+            
+
+
               },
               child: Container(
                 margin: const EdgeInsets.only(left:40.0,right: 40.0, top: 20.0, bottom: 20.0 ),
@@ -106,7 +115,7 @@ class _CheckinClienteScreenState extends State<CheckinClienteScreen> {
             valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
           ),
         ),
-      bottomNavigationBar: MyBotonNav(currentIndex: _currentIndex),
+      // bottomNavigationBar: MyBotonNav(currentIndex: _currentIndex),
     );
   }
 }

@@ -3,8 +3,9 @@ import 'package:go_router/go_router.dart';
 
 class MyBotonNav extends StatefulWidget {
   final int currentIndex;
+  final PageController pageController;
 
-  const MyBotonNav({super.key, required this.currentIndex});
+  const MyBotonNav({super.key, required this.currentIndex, required this.pageController});
 
   @override
   State<MyBotonNav> createState() => _MyBotonNavState();
@@ -20,34 +21,33 @@ class _MyBotonNavState extends State<MyBotonNav> {
     currentIndex = widget.currentIndex;
   }
 
-    onItemTapped(int index) {
-      setState(() {
-        currentIndex = index;
-        if(index == 0){
-           Navigator.pop(context);
-        }else{
-          context.push('/checkin_cliente');
-        }
-      
-      });
-    }
+   
 
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
+    return  BottomNavigationBar(
         currentIndex: currentIndex,
-        onTap: onItemTapped,
+        onTap: (index) {
+          setState(() {
+            currentIndex = index;
+            widget.pageController.animateToPage(
+              index,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
+            );
+          });
+        },
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Ficha',
+            label: 'Inicio',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Formulario',
+            icon: Icon(Icons.pageview),
+            label: 'Otra Pantalla',
           ),
         ],
-      );
+        );
 
      
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geoclientes/config/clientes.dart';
 import 'package:geoclientes/config/colors.dart';
+import 'package:geoclientes/presentations/screens/checkoin_cliente/checkin_cliente.dart';
 import 'package:geoclientes/presentations/screens/ficha_cliente/bottom_content.dart';
 import 'package:geoclientes/presentations/screens/ficha_cliente/my_boton_nav.dart';
 import 'package:geoclientes/presentations/screens/ficha_cliente/top_content.dart';
@@ -24,6 +25,10 @@ class FichaClienteScreen extends StatefulWidget {
 }
 
 class _FichaClienteScreenState extends State<FichaClienteScreen> {
+
+  // List<dynamic> checkBoxValues = [];
+
+
   String imagePath = "";
 
   int _currentIndex = 0;
@@ -70,27 +75,58 @@ class _FichaClienteScreenState extends State<FichaClienteScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    PageController pageController = PageController();
+
     return Scaffold(
-      // backgroundColor: colorBG,
-        
-         body: isLoading ? ListView(
-          children: [
-                TopContent(nombre: cliente.nombre,
-                            rut: cliente.rut, codigo: cliente.codigo, 
-                            telefono: cliente.telefono,
-                            pContacto: cliente.pContacto,
-                            ), 
-                BottomContent(codigoCliente: cliente.codigo,emailVendedor: widget.emailVendedor,)
-          ],
-              
-        ) :  
-        const Center(
-          child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-          ),
-        ), 
-        //  bottomNavigationBar: MyBotonNav(currentIndex: _currentIndex,),
-    );
+        backgroundColor: colorGREYwhite,
+     
+        body:PageView.builder(
+        controller: pageController,
+        itemCount: 5,
+        itemBuilder: (context, index) {
+          // Cambia el contenido de cada página según sea necesario.
+          return buildPage(index,pageController);
+        },
+      ),
+      //  bottomNavigationBar: MyBotonNav(currentIndex: _currentIndex, pageController: pageController,),
+  
+      );
+  
+  }
+
+  Widget buildPage(int index, PageController pageController) {
+
+    switch (index) {
+      case 0:
+        return   
+            Scaffold(
+            body: isLoading ? ListView(
+              children: [
+                    TopContent(nombre: cliente.nombre,
+                                rut: cliente.rut, codigo: cliente.codigo, 
+                                telefono: cliente.telefono,
+                                pContacto: cliente.pContacto,
+                                ), 
+                    // ? boton que envia los datos
+                    BottomContent(codigoCliente: cliente.codigo,emailVendedor: widget.emailVendedor,)
+              ],
+                  
+            ) :  
+            const Center(
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+              ),
+            ), 
+            // ? navegador para ver los botones de inicio
+            
+        );
+      case 1:
+        return CheckinClienteScreen();
+      
+      default:
+        throw Exception("Página no encontrada");
+    }
   }
 
 }

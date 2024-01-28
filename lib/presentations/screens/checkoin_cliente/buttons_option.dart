@@ -42,7 +42,8 @@ class _ButtonsOptionState extends State<ButtonsOption> {
                     setState(() {
                       inPressedA = !inPressedA;
                       inPressedB = false;
-                      widget.optionSelected[widget.indexOption] = {widget.indexOption : {'option_1': false, 'option_2': false}};
+                      widget.optionSelected[widget.indexOption] = { 
+                        widget.indexOption.toString() : {"id_formulario":widget.idFormulario,"option_1": false, "option_2": false}};
                     });
                   },
                   child: Container(
@@ -92,7 +93,9 @@ class _ButtonsOptionState extends State<ButtonsOption> {
                 setState(() {
                   inPressedA = !inPressedA;
                   inPressedB = false;
-                  widget.optionSelected[widget.indexOption] = {widget.indexOption : {'option_1': true, 'option_2': false}};
+                  widget.optionSelected[widget.indexOption] = {
+                    widget.indexOption.toString() : {"id_formulario":widget.idFormulario,"option_1": true, "option_2": false}
+                    };
                 });
               },
               child: Container(
@@ -127,7 +130,7 @@ class _ButtonsOptionState extends State<ButtonsOption> {
                 ),
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
           ],
         ),
       ),
@@ -139,7 +142,9 @@ class _ButtonsOptionState extends State<ButtonsOption> {
                   onTap: () {
                     setState(() {
                       inPressedB = !inPressedB;
-                      widget.optionSelected[widget.indexOption] =  {widget.indexOption : {'option_1': false, 'option_2': false}};
+                      widget.optionSelected[widget.indexOption] =  {
+                        widget.indexOption.toString() : {"id_formulario":widget.idFormulario,"option_1": false, "option_2": false}
+                        };
                     });
                   },
                   child: Container(
@@ -185,7 +190,9 @@ class _ButtonsOptionState extends State<ButtonsOption> {
                 setState(() {
                   inPressedB = !inPressedB;
                   inPressedA = false;
-                  widget.optionSelected[widget.indexOption] = {widget.indexOption : {'option_1': false, 'option_2': true}};
+                  widget.optionSelected[widget.indexOption] = {
+                    widget.indexOption.toString() : {"id_formulario":widget.idFormulario,"option_1": false, "option_2": true}
+                    };
                 });
               },
               child: Container(
@@ -220,7 +227,7 @@ class _ButtonsOptionState extends State<ButtonsOption> {
                 ),
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
           ],
         ),
       )

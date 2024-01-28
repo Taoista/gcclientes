@@ -187,8 +187,11 @@ class _BottomContentState extends State<BottomContent> {
                                         codigoCliente: widget.codigoCliente, 
                                         latitud: latitud, longitud: longitud, 
                                         nota: nota, listaImagenes: finalImageSended, userEmail: userEmail);
-        String response = await visita.sendData();
-        if(response.replaceAll(RegExp(r'\s+'), '') == "ok"){
+        Map<String, dynamic> response = await visita.sendData();
+        String messageResponse = response['message'];
+        int idVisita = response['data']['id'];
+
+        if(messageResponse == "success"){
           _msgSendOk();
           
         }else{
