@@ -66,7 +66,7 @@ class _BuscarClientesState extends State<BuscarClientes> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: colorBG,
-       drawer: const MiDrawer(),
+       drawer: MiDrawer(),
         appBar: AppBar(
           backgroundColor: colorBG,
           title: const Text('Buscar clientes', style: TextStyle(color: Colors.white)),

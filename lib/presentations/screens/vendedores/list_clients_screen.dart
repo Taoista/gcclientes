@@ -67,7 +67,7 @@ class _ListClientsScreenState extends State<ListClientsScreen> {
   Widget build(BuildContext context) {
     return  Scaffold(
         backgroundColor: colorBG,
-        drawer: const MiDrawer(),
+        drawer: MiDrawer(),
         appBar: AppBar(
           backgroundColor: colorBG,
           title: const Text('Geo Clientes', style: TextStyle(color: Colors.white)),

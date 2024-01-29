@@ -29,7 +29,7 @@ class CrearClientesScreen extends StatelessWidget {
 
     return Scaffold(
         backgroundColor: colorGREYwhite,
-        drawer: const MiDrawer(),
+        drawer: MiDrawer(),
         appBar: AppBar(
           backgroundColor: colorBG,
           title: const Text('Crear Cliente', style: TextStyle(color: Colors.white)),

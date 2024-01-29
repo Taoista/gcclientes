@@ -14,7 +14,7 @@ class CrearCliente extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: colorBG,
-        drawer: const MiDrawer(),
+        drawer: MiDrawer(),
         appBar: AppBar(
           backgroundColor: colorBG,
           title: const Text('Crear Cliente', style: TextStyle(color: Colors.white)),

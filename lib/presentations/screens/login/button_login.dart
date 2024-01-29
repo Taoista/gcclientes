@@ -65,6 +65,7 @@ class _ButtonLoginState extends State<ButtonLogin> {
             _prefs!.setString('apellido', data['apellido']);
             _prefs!.setInt('id_rol', data['id_rol']);
             _prefs!.setString('rol', data['rol']);
+            _prefs!.setString('url_photo', data['url_photo']);
             context.push('/vendedores');
           }else{
             errorContactAdmin(context);

@@ -6,14 +6,15 @@ import 'package:geoclientes/controllers/controll_send_formulario.dart';
 import 'package:geoclientes/presentations/screens/checkoin_cliente/card_check.dart';
 import 'package:geoclientes/presentations/screens/ficha_cliente/my_boton_nav.dart';
 import 'package:geoclientes/widget/mi_drawer.dart';
+import 'package:go_router/go_router.dart';
 
 
 class CheckinClienteScreen extends StatefulWidget {
   static const String name = "checkin_cliente";
-
+  int idRegistro;
   // final List checkBoxValues;
 
-  const CheckinClienteScreen({Key? key}) : super(key: key);
+  CheckinClienteScreen({Key? key, required this.idRegistro}) : super(key: key);
 
   @override
   State<CheckinClienteScreen> createState() => _CheckinClienteScreenState();
@@ -37,10 +38,12 @@ class _CheckinClienteScreenState extends State<CheckinClienteScreen> {
         formularios = data;
 
         checkBoxValues = List.generate(formularios.length, (index) => {
-          index.toString(): {"id_formulario":formularios[index].id,"option_1": false, "option_2": false}
+          // "$index": {"id_formulario":formularios[index].id,"option_1": false, "option_2": false}
+         "id_formulario":formularios[index].id,"option_1": false, "option_2": false
         });
         isLoading = true;
       });
+      // print(checkBoxValues);
     } catch (e) {
       throw e;
     }
@@ -59,7 +62,7 @@ class _CheckinClienteScreenState extends State<CheckinClienteScreen> {
 
     return Scaffold(
        backgroundColor: colorBG,
-        drawer: const MiDrawer(),
+        drawer: MiDrawer(),
         appBar: AppBar(
           backgroundColor: colorBG,
           title: const Text('Formulario', style: TextStyle(color: Colors.white)),
@@ -70,15 +73,7 @@ class _CheckinClienteScreenState extends State<CheckinClienteScreen> {
           if (index == formularios.length) {
             return InkWell(
               onTap: () async {
-           
-                final controll =  ControllSendFormulario(formulario: checkBoxValues);
-
-                var dat = await controll.sendFormular();
-
-                print(dat);
-            
-
-
+                sendData();
               },
               child: Container(
                 margin: const EdgeInsets.only(left:40.0,right: 40.0, top: 20.0, bottom: 20.0 ),
@@ -118,4 +113,77 @@ class _CheckinClienteScreenState extends State<CheckinClienteScreen> {
       // bottomNavigationBar: MyBotonNav(currentIndex: _currentIndex),
     );
   }
+
+  Future<void> sendData() async {
+      final int idRegistro = widget.idRegistro;
+      final controll =  ControllSendFormulario(formulario: checkBoxValues, idVisita: idRegistro);
+
+      Map<String, dynamic> dat = await controll.sendFormular();
+      String response = dat['message'];
+      // viene otro datos dat['data']
+      if(response == "ok"){
+        _msgSendOk();
+      }else{  
+        _msgErrorSEND();
+      } 
+  }
+
+    Future<void> _msgSendOk() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Reporte'),
+          content: const SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Reporte.'),
+                Text('Se envio correctamente'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Aceptar'),
+              onPressed: () {
+                 context.push("/vendedores");
+                // Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+    Future<void> _msgErrorSEND() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Envio'),
+          content: const SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Error.'),
+                Text('Error al enviar,intente mas tarde'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Aceptar'),
+              onPressed: () {
+                 context.push("/list_client");
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
 }

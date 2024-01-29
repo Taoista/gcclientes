@@ -16,7 +16,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 class BottomContent extends StatefulWidget {
   final String codigoCliente;
   final String emailVendedor;
-  const BottomContent({super.key, required this.codigoCliente, required this.emailVendedor});
+  final int idRegistro;
+  final Function(int) onIdRegistroChanged; 
+  const BottomContent({super.key, required this.codigoCliente, required this.emailVendedor, 
+                        required this.idRegistro, required this.onIdRegistroChanged});
   
   @override
   State<BottomContent> createState() => _BottomContentState();
@@ -190,19 +193,19 @@ class _BottomContentState extends State<BottomContent> {
         Map<String, dynamic> response = await visita.sendData();
         String messageResponse = response['message'];
         int idVisita = response['data']['id'];
-
+        widget.onIdRegistroChanged(idVisita);
         if(messageResponse == "success"){
           _msgSendOk();
           
         }else{
           _msgErrorSEND();
         }
-        textarea = "";
+        // textarea = "";
       }
       setState(() {
         isloading = false;
       });
-    }
+  }
 
 
   Future<void> _msgError() async {
@@ -252,7 +255,8 @@ class _BottomContentState extends State<BottomContent> {
             TextButton(
               child: const Text('Aceptar'),
               onPressed: () {
-                 context.push("/vendedores");
+                //  context.push("/vendedores");
+                Navigator.of(context).pop();
               },
             ),
           ],

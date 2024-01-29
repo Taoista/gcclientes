@@ -1,19 +1,18 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:geoclientes/config/configuration.dart';
 
 class ControllSendFormulario {
   final List formulario;
+  final int idVisita;
 
-  ControllSendFormulario({required this.formulario});
+  ControllSendFormulario({required this.formulario, required this.idVisita});
 
    formularioSend() {
-    print(jsonEncode(formulario));
-    // return formulario;
-    return {
-      'formulario': jsonEncode(formulario),
-    };
+  
+      return {
+        "formulario": formulario,
+        "id_visita": idVisita,
+      };
   }
 
   Future sendFormular() async {
@@ -25,9 +24,9 @@ class ControllSendFormulario {
       Response response = await dio.post("${urlAmind()}api/form_swtich_visita_cliente",
         data: postData,
       );
+      // print(response.data);
       return response.data;
     } catch (e) {
-      print(e);
       return "error";
     }
   }

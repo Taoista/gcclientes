@@ -43,7 +43,9 @@ class _ButtonsOptionState extends State<ButtonsOption> {
                       inPressedA = !inPressedA;
                       inPressedB = false;
                       widget.optionSelected[widget.indexOption] = { 
-                        widget.indexOption.toString() : {"id_formulario":widget.idFormulario,"option_1": false, "option_2": false}};
+                        // widget.indexOption.toString() : {"id_formulario":widget.idFormulario,"option_1": false, "option_2": false}};
+                        "id_formulario":widget.idFormulario,"option_1": false, "option_2": false
+                        };
                     });
                   },
                   child: Container(
@@ -94,7 +96,8 @@ class _ButtonsOptionState extends State<ButtonsOption> {
                   inPressedA = !inPressedA;
                   inPressedB = false;
                   widget.optionSelected[widget.indexOption] = {
-                    widget.indexOption.toString() : {"id_formulario":widget.idFormulario,"option_1": true, "option_2": false}
+                    // widget.indexOption.toString() : {"id_formulario":widget.idFormulario,"option_1": true, "option_2": false}
+                   "id_formulario":widget.idFormulario,"option_1": true, "option_2": false
                     };
                 });
               },
@@ -143,7 +146,8 @@ class _ButtonsOptionState extends State<ButtonsOption> {
                     setState(() {
                       inPressedB = !inPressedB;
                       widget.optionSelected[widget.indexOption] =  {
-                        widget.indexOption.toString() : {"id_formulario":widget.idFormulario,"option_1": false, "option_2": false}
+                        // widget.indexOption.toString() : {"id_formulario":widget.idFormulario,"option_1": false, "option_2": false}
+                        "id_formulario":widget.idFormulario,"option_1": false, "option_2": false
                         };
                     });
                   },
@@ -191,7 +195,8 @@ class _ButtonsOptionState extends State<ButtonsOption> {
                   inPressedB = !inPressedB;
                   inPressedA = false;
                   widget.optionSelected[widget.indexOption] = {
-                    widget.indexOption.toString() : {"id_formulario":widget.idFormulario,"option_1": false, "option_2": true}
+                    // widget.indexOption.toString() : {"id_formulario":widget.idFormulario,"option_1": false, "option_2": true}
+                    "id_formulario":widget.idFormulario,"option_1": false, "option_2": true
                     };
                 });
               },

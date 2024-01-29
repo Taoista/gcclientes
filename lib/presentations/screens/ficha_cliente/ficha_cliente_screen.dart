@@ -26,13 +26,11 @@ class FichaClienteScreen extends StatefulWidget {
 
 class _FichaClienteScreenState extends State<FichaClienteScreen> {
 
-  // List<dynamic> checkBoxValues = [];
-
-
   String imagePath = "";
 
   int _currentIndex = 0;
 
+  int idRegistro = 0;
 
   SharedPreferences? _prefs;
 
@@ -83,14 +81,13 @@ class _FichaClienteScreenState extends State<FichaClienteScreen> {
      
         body:PageView.builder(
         controller: pageController,
-        itemCount: 5,
+        itemCount: idRegistro == 0 ? 1:2,
         itemBuilder: (context, index) {
           // Cambia el contenido de cada página según sea necesario.
           return buildPage(index,pageController);
         },
       ),
-      //  bottomNavigationBar: MyBotonNav(currentIndex: _currentIndex, pageController: pageController,),
-  
+       
       );
   
   }
@@ -109,7 +106,14 @@ class _FichaClienteScreenState extends State<FichaClienteScreen> {
                                 pContacto: cliente.pContacto,
                                 ), 
                     // ? boton que envia los datos
-                    BottomContent(codigoCliente: cliente.codigo,emailVendedor: widget.emailVendedor,)
+                    BottomContent(codigoCliente: cliente.codigo,
+                                  emailVendedor: widget.emailVendedor,
+                                  idRegistro: idRegistro,
+                                  onIdRegistroChanged:(newId){
+                                    setState(() {
+                                      idRegistro = newId;
+                                    });
+                                  }),
               ],
                   
             ) :  
@@ -119,10 +123,11 @@ class _FichaClienteScreenState extends State<FichaClienteScreen> {
               ),
             ), 
             // ? navegador para ver los botones de inicio
-            
+            bottomNavigationBar: MyBotonNav(currentIndex: _currentIndex, pageController: pageController,idRegistro: idRegistro,),
+  
         );
       case 1:
-        return CheckinClienteScreen();
+        return CheckinClienteScreen(idRegistro: idRegistro,);
       
       default:
         throw Exception("Página no encontrada");

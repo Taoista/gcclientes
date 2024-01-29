@@ -55,7 +55,7 @@ class _VendedoresScreenState extends State<VendedoresScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: colorBG,
-      drawer: const MiDrawer(),
+      drawer: MiDrawer(),
       appBar: AppBar(
         backgroundColor: colorBG,
         title: const Text('Vendedores', style: TextStyle(color: Colors.white)),

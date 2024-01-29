@@ -49,11 +49,11 @@ appRouter(){
           return FichaClienteScreen(codigoCliente: codigoCliente,emailVendedor:emailVendedor);
         }
       ),
-       GoRoute(
-        path: "/checkin_cliente",
-        name: CheckinClienteScreen.name,
-        builder: (context, state) => const CheckinClienteScreen()
-      ),
+      //  GoRoute(
+      //   path: "/checkin_cliente",
+      //   name: CheckinClienteScreen.name,
+      //   builder: (context, state) => const CheckinClienteScreen()
+      // ),
        GoRoute(
         path: "/crear_cliente",
         name: CrearClientesScreen.name,
