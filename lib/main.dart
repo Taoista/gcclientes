@@ -6,7 +6,7 @@ import 'package:geoclientes/controllers/controll_gps.dart';
 
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 

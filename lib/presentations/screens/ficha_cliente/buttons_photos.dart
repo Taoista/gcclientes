@@ -118,7 +118,7 @@ class _ButtonsPhotosState extends State<ButtonsPhotos> {
           print(_firstPhoto);
         },
         style: ElevatedButton.styleFrom(
-          foregroundColor: Colors.blue, primary: Colors.white, // Establece el color del borde
+          foregroundColor: Colors.blue, backgroundColor: Colors.white, // Establece el color del borde
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(40.0),
             side: const BorderSide(color: colorBGlIGHT), // Establece el color del borde
